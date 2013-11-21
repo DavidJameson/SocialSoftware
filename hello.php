@@ -7,4 +7,7 @@
 
    $answer = Add(4,5);
    echo "The next answer is $answer\n";
+   
+   $answer = Add(1,8);
+   echo "The third answer is $answer\n";
 ?>
