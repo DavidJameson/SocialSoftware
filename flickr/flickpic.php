@@ -3,12 +3,43 @@
 	<title>Flickr Collage! </title>
 
 <style type="text/css">
+
+	@font-face{
+		font-family: bird;
+		src: url('LittleBird.ttf');
+	}
+
+
+	@font-face{
+		font-family: neo;
+		src: url('neoubold.ttf');
+	}
+
 	body{
+		background-image: url(fabric_plaid.png);
+	}
+
+	#collage{
+		background-color: #DCFAE0;
 		width: 700px;
 		margin: 0 auto;
-		margin-top: 100px;
+		margin-top: 30px;
 		margin-bottom: 50px;
+		border:thin black dashed;
+		padding-left: 100px;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		box-shadow: -10px 10px 3px #888888;
 
+
+	}
+
+
+	#header{
+		text-align: center;
+		margin-top: 50px;
+		font-size: 55px;
+		font-family: bird;
 	}
 
 	#pic{
@@ -21,6 +52,34 @@
 		opacity: .5;
 	}
 
+	#jump{
+		font-family: neo;
+		font-size: 20px;
+		text-align: center;
+		margin-bottom: 10px;
+	}
+
+	a:link{
+		color: white;
+		text-decoration: none;
+		
+	}
+	a:visited{
+		color:#222;
+		text-decoration:none;
+	}
+
+	a:hover{
+		color:teal;
+		text-decoration:none;
+	
+	}
+
+	a:active{
+		color:#999;
+		text-decoration:none;
+	}
+
 </style>
 
 
@@ -28,9 +87,10 @@
 </head>
 <body>
 
-<?php 
+<?php
 
 $topic = $_GET['topic'];
+echo '<div id="header">'. $topic. ' Collage <br/> <span style="font-size: 30px">powered by Flickr </span></div>';
 $topic = str_replace(" ", "+", $topic);
 
 
@@ -70,6 +130,8 @@ foreach ($rsp_obj['photos']['photo']['id'] as $var)
 $arrayLength = sizeof($rsp_obj['photos']['photo']);
 $arrayLength--;
 
+
+echo '<div id="collage">';
 for ($i = 0;$i <= $arrayLength; $i++)
 {
 	$tempPhotoID = $rsp_obj['photos']['photo'][$i]['id'];
@@ -77,14 +139,19 @@ for ($i = 0;$i <= $arrayLength; $i++)
 	$tempPhotoServer = $rsp_obj['photos']['photo'][$i]['server'];
 	$tempPhotoSecret = $rsp_obj['photos']['photo'][$i]['secret'];
 
-	echo "<object id='pic'> <img src='http://farm" . $tempPhotoFarm . ".staticflickr.com/" . 
-    $tempPhotoServer . "/" . $tempPhotoID."_". $tempPhotoSecret . "_s.jpg' width='150px' border='0'/> </object>"; 
+	echo "<object id='pic'> <a href='http://farm". $tempPhotoFarm.".staticflickr.com/". $tempPhotoServer."/"
+	.$tempPhotoID."_".$tempPhotoSecret.".jpg'><img src='http://farm" . $tempPhotoFarm . ".staticflickr.com/" . 
+    $tempPhotoServer . "/" . $tempPhotoID."_". $tempPhotoSecret . "_s.jpg' width='150px' border='0'/></a> </object>"; 
 
 }
 
-
+echo '</div>';
  ?>
 
+
+<div id="jump">
+	<a href="flickpic.html"><b>Choose another collage topic</b></a>
+</div>
 
 </body>
 </html>

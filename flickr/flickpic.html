@@ -2,13 +2,49 @@
 <head>
 	<title>Topic Collage powered by Flickr</title>
 	<meta charset="UTF-8">
+	<style>
+	@font-face{
+		font-family: bird;
+		src: url('LittleBird.ttf');
+	}
+
+	@font-face{
+		font-family: neo;
+		src: url('neoubold.ttf');
+	}
+
+	body{
+		background-image: url(fabric_plaid.png);
+	}
+
+	#header{
+		text-align: center;
+		margin-top: 50px;
+		font-size: 55px;
+		font-family: bird;
+	}
+
+	#search{
+		width: 300px;
+		margin: 0 auto;
+		font-family: neo;
+		font-size: 22px;
+		color: #448049;
+	}
+
+	</style>
+
 </head>
 <body>
-
-	<form method="get" action="flickpic.php">
-		Enter a topic for your collage: <input type="text" size="50" name="topic">
+	<div id="header">
+		Create a collage from Flickr relating to any topic 
+	</div>
+<br><br>
+	<form id="search" method="get" action="flickpic.php">
+		Search for a topic: <input type="text" size="50" name="topic">
 		<input type="submit">
 	</form>
+
 
 </body>
 </html>
