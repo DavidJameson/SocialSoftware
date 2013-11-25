@@ -9,16 +9,21 @@
 		margin-top: 100px;
 		margin-bottom: 50px;
 
+	}
 
+	#pic{
+		transition: all ease-in-out 0.55s;
+		-webkit-transition: all 0.55s ease-in-out;
+		-moz-transition: all ease-in-out 0.55s;
+	}
+
+	#pic:hover{
+		opacity: .5;
 	}
 
 </style>
 
-<script src="/bower_components/jquery/index.js"></script>
 
-<script>
-$('#pic').photosetGrid();
-</script>
 
 </head>
 <body>
@@ -78,8 +83,8 @@ for ($i = 0;$i <= $arrayLength; $i++)
 }
 
 
-
  ?>
+
 
 </body>
 </html>
