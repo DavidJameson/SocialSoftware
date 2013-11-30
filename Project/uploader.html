@@ -8,8 +8,9 @@
 	</head>
 	<body>
 		<form id="form1" runat="server">
-		    <input type='file' id="imgInp" onchange="readMultipleURL(this);" multiple='multiple' value='Add Image'/>
-		    <div id="blah">
+		    <input type='file' id="fileInput" multiple />
+			<span id="fileSelect">Select some files</span>
+		    <div id="fileList">
 				images go here.
 			</div>
 		</form>

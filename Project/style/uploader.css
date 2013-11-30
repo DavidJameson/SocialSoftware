@@ -3,3 +3,13 @@
 	margin: 5px;
 	display: block;
 }
+#fileInput
+{
+	display: none;
+}
+#fileSelect
+{
+	width: 100px;
+	height: 40px;
+	border: 1px solid black;
+}
