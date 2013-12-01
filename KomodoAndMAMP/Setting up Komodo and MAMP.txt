@@ -1,0 +1,59 @@
+MAMP needs to be installed, presumably by CTS
+Go to http://mamp.info/en/downloads/index.html if you are installing it yourself
+Suggestion - once you have it up and running, consider changing the root folder for documents to a location outside the MAMP system and then add that location to version control.
+
+Komodo IDE 8 needs to be installed, presumably by CTS
+
+Once you have MAMP installed, create a simple php page called phpinfo.php (say) with the following contents
+<?php
+   echo phpinfo();
+?>
+and install it in your root documents folder. Test it using the URL
+http://localhost:8888/phpinfo.php
+
+
+
+
+
+Remote debugging.
+Komodo IDE can debug PHP code running on a remote (i.e. MAMP) server but it requires a debugging library to be installed. 
+You need to know which version of PHP you are running. You can find this by clicking on the Preferences... button in the MAMP dialog
+and then click on PHP. As of this writing, PHP 5.5.3 is the default.
+
+Go to http://code.activestate.com/komodo/remotedebugging/ to download the appropriate library 
+(presumably the Mac OS X (universal) library for PHP Remote Debugging Client)
+Expand the zip file and under the folder called 5.5 you will find a file called xdebug.so.
+
+Then follow the instructions at the following URL to configure MAMP for remote debugging
+http://docs.activestate.com/komodo/8.0/debugphp.html#remote_debug_PHP
+
+
+You will be adding the following section to the php.ini file. That file is located at
+/Applications/MAMP/bin/php/conf/php.ini
+
+
+;Debugging with Komodo IDE 8
+; xdebug config for Linux and Mac OS X
+zend_extension="/Applications/MAMP/bin/php/php5.5.3/lib/php/extensions/xdebug.so"
+xdebug.remote_enable=1
+xdebug.remote_handler=dbgp
+xdebug.remote_mode=req
+xdebug.remote_host=127.0.0.1
+xdebug.remote_port=9000
+xdebug.idekey=<idekey>
+; You may also want this - to always start a remote debugging connection.
+xdebug.remote_autostart=1
+
+
+
+
+Make sure that the value for the remote port as defined by is set to 9000 in Komodo (Preferences, under Debugger/Connection) o
+
+
+
+
+To debug a script, add the following name/value pair to the URL
+   XDEBUG_SESSION_START=1
+
+Use a ? before it if it's the first (or only) parameter after the URL, otherwise separate it from the 
+previous parameter in the usual manner using &
