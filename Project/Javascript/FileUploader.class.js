@@ -111,7 +111,8 @@ function FileUploader(fileInput,fileSelect,displayBox,files)
 		
 		uploader.fileInput.addEventListener("change",function (e)
 		{
-			handleFiles();
+			uploader.addFilesToArray(uploader.fileInput.files);
+			uploader.handleFiles(); 
 		},false);
 	};
 	
