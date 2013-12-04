@@ -1,21 +1,41 @@
-function FileUploader(fileInput,fileSelect,displayBox)
+//This class is meant to be used for previewing, and
+//uploading multiples files
+function FileUploader(fileInput,fileSelect,displayBox,files)
 {
+	var uploader = this;
 	this.fileInput = fileInput;
 	this.fileSelect = fileSelect;
 	this.displayBox = displayBox;
-	var dropbox;
-	var progressBar;
+	this.dropbox;
+	this.filesArray = new Array();
 	
-	addEvents();
 	
 	//Methods
 	//These functions can be called using an instance of this object
-	FileUploader.prototype.dropboxSetup = function (domID)
+	this.addFilesToArray = function(files)
 	{
-		dropbox = document.getElementById("dropbox");
-		dropbox.addEventListener("dragenter", dragenter, false);
-		dropbox.addEventListener("dragover", dragover, false);
-		dropbox.addEventListener("drop", drop, false);
+		arraySize = files.length;
+		for(var i = 0; i < arraySize; i++)
+		{
+			var file = new FileContainer(files[i]);
+			uploader.filesArray.push(file);
+		}
+	};
+	this.isFileSelected =function()
+	{
+		var isFileSelected = false;
+		if (uploader.filesArray.length > 0) 
+	  	{
+			isFileSelected = true;
+	  	}
+		return isFileSelected; 
+	};
+	this.dropboxSetup = function (domID)
+	{
+		uploader.dropbox = document.getElementById(domID);
+		uploader.dropbox.addEventListener("dragenter", dragenter, false);
+		uploader.dropbox.addEventListener("dragover", dragover, false);
+		uploader.dropbox.addEventListener("drop", drop, false);
 		
 		function dragenter(e) 
 		{
@@ -35,11 +55,21 @@ function FileUploader(fileInput,fileSelect,displayBox)
 
 			var dt = e.dataTransfer;
 			var files = dt.files;
-			
-			handleFiles(files);          
+			uploader.addFilesToArray(files);
+			uploader.handleFiles();          
 		}
 	};
-	function sendFile(file) 
+	
+	this.uploadFiles = function()
+	{
+		for(var i =0; i < uploader.filesArray.length; i++)
+		{
+			uploader.sendFile(uploader.filesArray[i]);
+		}
+	};
+	//Inside Functions
+	//These functions are private, therefore can only be called from inside.
+	this.sendFile = function(fileContainer) 
 	{
 			var uri = "PHP/serverUploader.php";
             var xhr = new XMLHttpRequest();
@@ -58,97 +88,64 @@ function FileUploader(fileInput,fileSelect,displayBox)
 		  	  if (e.lengthComputable) 
 				{
 		  		  	var percentage = Math.round((e.loaded * 100) / e.total);
-					progressBar.innerHTML = percentage;
-					alert(percentage);
+					fileContainer.progressBar.innerHTML = percentage;
+					//alert(percentage);
 				}
-			}, true);
-			
-            fd.append('myFile', file);
+			}, false);
+	
+            fd.append('myFile', fileContainer.file);
             // Initiate a multipart/form-data upload
             xhr.send(fd);
-	}
-	//Inside Functions
-	//These functions are private, therefore can only be called from inside.
-	function addEvents()
+	};
+
+	this.addEvents = function()
 	{
-		fileSelect.addEventListener("click", function (e) 
+		uploader.fileSelect.addEventListener("click", function (e) 
 		{
-		  if (fileInput) 
+		  if (uploader.fileInput) 
 		  {
-		    fileInput.click();
+		    uploader.fileInput.click();
 		  }
 		  e.preventDefault(); // prevent navigation to "#"
 		}, false);
 		
-		fileInput.addEventListener("change",function (e)
+		uploader.fileInput.addEventListener("change",function (e)
 		{
-			handleFiles(fileInput.files);
+			handleFiles();
 		},false);
-	}
+	};
 	
-	function handleFiles(files) 
+	this.handleFiles = function() 
 	{
 		processCompleted = false;
-		if(isFileSelected(files)) 
+		if(uploader.isFileSelected()) 
 		{
-			clearDisplayBox();
-			displaySelectedFiles(files);
-			for(var i =0; i < files.length; i++)
-			{
-				setTimeout(sendFile(files[i]),40000);
-			}
+			uploader.clearDisplayBox();
+			uploader.displaySelectedFiles();
 		}
 		else
 		{
-			displayBox.innerHTML = "<p>No files selected!</p>";
+			uploader.displayBox.innerHTML = "<p>No files selected!</p>";
 		}
 		return processCompleted;
-	}
-	function isFileSelected(files)
+	};
+	
+	this.clearDisplayBox = function()
 	{
-		var isFileSelected = false;
-		if (files.length > 0) 
-	  	{
-			isFileSelected = true;
-	  	}
-		return isFileSelected; 
-	}
-	function clearDisplayBox()
-	{
-		displayBox.innerHTML = '';
-	}
-	function displaySelectedFiles(files)
+		uploader.displayBox.innerHTML = '';
+	};
+	this.displaySelectedFiles = function()
 	{
 		var container = document.createElement("div");
-	    for (var i = 0; i < files.length; i++) 
+		container.id = "container";
+		uploader.displayBox.appendChild(container);
+		
+	    for (var i = 0; i < uploader.filesArray.length; i++) 
 		{
-		    var content = document.createElement("div");
-			content.className = "displayContent";
-		    container.appendChild(content);
-		      
-		    var img = document.createElement("img");
-			img.className = "images";
-		    img.src = window.URL.createObjectURL(files[i]);
-		    img.height = 60;
-			  
-		    img.onload = function(e) 
-			{
-		      window.URL.revokeObjectURL(this.src);
-		    }
-			  
-		    content.appendChild(img);
-		     
-		    var info = document.createElement("span");
-			info.className = "title";
-		    info.innerHTML = files[i].name;
-			content.appendChild(info);
-			
-			progressBar = document.createElement("span");
-			progressBar.innerHTML = 0;
-			info.className ="progressBar";
-			content.appendChild(progressBar);
-		    
+			fileContainer = uploader.filesArray[i].content;
+			container.appendChild(fileContainer);		    
 		}
-	    displayBox.appendChild(container);
-	}
+	};
+	
+	this.addEvents();
 }

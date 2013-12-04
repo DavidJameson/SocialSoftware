@@ -13,7 +13,7 @@ $(document).ready(function()
 	
 	sendButton.addEventListener("click", function (e) 
 	{
-	  fileUploader.sendFiles();
+	  fileUploader.uploadFiles();
 	  e.preventDefault(); // prevent navigation to "#"
 	}, false);
 });
