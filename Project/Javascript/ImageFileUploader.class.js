@@ -116,9 +116,10 @@ function ImageFileUploader(fileInput,fileSelect,displayBox,files)
 					{
 						fileContainer.getProgressBar().innerHTML = percentage+'%';
 					}
-					if(percentage > 5)
+					if(percentage > 0)
 					{
-						fileContainer.getProgressBar().style.backgroundSize = percentage+'%'+" 							100%";
+						var style = percentage+'%'+'100%';
+						fileContainer.getProgressBar().style.backgroundSize = style;
 					}
 				}
 			}, false);

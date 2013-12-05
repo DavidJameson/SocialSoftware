@@ -39,7 +39,7 @@
 	text-align: center;
 	display: block;
 	
-	background: -webkit-linear-gradient(left, #96949c,#85838B); /* For Safari */
+	background: -webkit-linear-gradient(right, #96949c,#85838B); /* For Safari */
 	background: -o-linear-gradient(right, #96949c,#85838B); /* For Opera 11.1 to 12.0 */
 	background: -moz-linear-gradient(right, #96949c,#85838B); /* For Firefox 3.6 to 15 */
 	background: linear-gradient(to right, #96949c,#85838B); /* Standard syntax */
