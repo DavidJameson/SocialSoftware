@@ -4,6 +4,7 @@
 function FileContainer(file)
 {
 	var container = this;
+	
 	this.file = file;
 	this.imageField;
 	this.infoField;
@@ -17,6 +18,7 @@ function FileContainer(file)
 		container.createImageField('images');
 		container.createInfoField('info');
 		container.createProgressBar('progressBar');
+		console.log(container.content);
 	};
 	this.createImageField = function(className)
 	{
@@ -39,8 +41,8 @@ function FileContainer(file)
 	this.createProgressBar = function(className)
 	{
 		container.progressBar = document.createElement('span');
-		container.progressBar.innerHTML = 0;
 		container.progressBar.className = className;
+		container.progressBar.innerHTML = '0%';
 		container.content.appendChild(container.progressBar);
 	};
 	

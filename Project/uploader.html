@@ -10,14 +10,17 @@
 		
 	</head>
 	<body>
-		<div id="upload">
-		    <input type='file' id="fileInput" multiple />
+		<div id="uploadArea">
+			<span id="menu">
+				<input type='file' id="fileInput" multiple style="display: none;"/>
+				<button class="menuButton" id="fileSelect">Add Images</button>
+				<button class="menuButton" id="send">Send</button>
+			</span>
 			<span id="dropbox">Drop Images Here</span>
-			<span id="fileSelect">Select some files</span>
 		    <div id="fileList">
-				
+				Files not selected.
 			</div>
-			<button id="send">Send</button>
+			
 		</div>
 	</body>
 </html>

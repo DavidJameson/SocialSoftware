@@ -88,8 +88,18 @@ function FileUploader(fileInput,fileSelect,displayBox,files)
 		  	  if (e.lengthComputable) 
 				{
 		  		  	var percentage = Math.round((e.loaded * 100) / e.total);
-					fileContainer.progressBar.innerHTML = percentage;
-					//alert(percentage);
+					if(percentage < 100)
+					{
+						fileContainer.progressBar.innerHTML = percentage+'%';
+					}
+					else
+					{
+						fileContainer.progressBar.innerHTML = "Upload Completed";
+					}
+					if(percentage > 5)
+					{
+						fileContainer.progressBar.style.backgroundSize = percentage-5+'%'+" 							100%";
+					}
 				}
 			}, false);
 	
