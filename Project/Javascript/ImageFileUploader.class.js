@@ -1,6 +1,6 @@
 //This class is meant to be used for previewing, and
 //uploading multiples files
-function FileUploader(fileInput,fileSelect,displayBox,files)
+function ImageFileUploader(fileInput,fileSelect,displayBox,files)
 {
 	var uploader = this;
 	this.fileInput = fileInput;
@@ -8,18 +8,38 @@ function FileUploader(fileInput,fileSelect,displayBox,files)
 	this.displayBox = displayBox;
 	this.dropbox;
 	this.filesArray = new Array();
-	
+	this.allowedTypes = ["image/jpg","image/jpeg","image/png"];
 	
 	//Methods
 	//These functions can be called using an instance of this object
 	this.addFilesToArray = function(files)
 	{
-		arraySize = files.length;
+		arraySize = files.length
 		for(var i = 0; i < arraySize; i++)
 		{
-			var file = new FileContainer(files[i]);
-			uploader.filesArray.push(file);
+			var isImage = uploader.isImageFile(files[i])
+			if(isImage)
+			{
+				name = files[i].name.replace(/\..+$/, ''); //removes files type from name
+				
+				var file = new ImageFileContainer(files[i],name);
+				uploader.filesArray.push(file);
+			}			
 		}
+	};
+	this.isImageFile = function(file)
+	{
+		var fileType = file.type;
+		var imageFile = false;
+		for(type in uploader.allowedTypes)
+		{
+			if(uploader.allowedTypes[type] == fileType)
+			{
+				imageFile = true;
+			}
+		}
+		
+		return imageFile;
 	};
 	this.isFileSelected =function()
 	{
@@ -55,6 +75,7 @@ function FileUploader(fileInput,fileSelect,displayBox,files)
 
 			var dt = e.dataTransfer;
 			var files = dt.files;
+			console.log(files);
 			uploader.addFilesToArray(files);
 			uploader.handleFiles();          
 		}

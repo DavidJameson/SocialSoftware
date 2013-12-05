@@ -7,13 +7,13 @@ $(document).ready(function()
 	var displayBox = document.getElementById('fileList');
 	var sendButton = document.getElementById('send');
 	
-	var fileUploader = new FileUploader(fileInput,fileSelect,fileList);
+	var imageFileUploader = new ImageFileUploader(fileInput,fileSelect,fileList);
 			
-	fileUploader.dropboxSetup('dropbox');	
+	imageFileUploader.dropboxSetup('dropbox');	
 	
 	sendButton.addEventListener("click", function (e) 
 	{
-	  fileUploader.uploadFiles();
+	  imageFileUploader.uploadFiles();
 	  e.preventDefault(); // prevent navigation to "#"
 	}, false);
 });

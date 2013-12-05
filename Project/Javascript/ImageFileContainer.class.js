@@ -1,15 +1,19 @@
 //Class developed in order to organize different files and
 //its tag elements, also to make it easy to create a
 //box containain all the information to be displayed.
-function FileContainer(file)
+function ImageFileContainer(file,name)
 {
 	var container = this;
 	
 	this.file = file;
+	this.fileName = name;
+	this.uploaded = false;
+	
 	this.imageField;
 	this.infoField;
 	this.progressBar;
 	this.content;
+	
 	
 	this.createContent = function()
 	{
@@ -35,7 +39,7 @@ function FileContainer(file)
 	{
 		container.infoField = document.createElement('span');
 		container.infoField.className = className;
-		container.infoField.innerHTML = file.name;
+		container.infoField.innerHTML = container.fileName;
 		container.content.appendChild(container.infoField);
 	};
 	this.createProgressBar = function(className)
