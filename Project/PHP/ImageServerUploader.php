@@ -1,7 +1,7 @@
 <?php
 	$file = ($_FILES['myFile']);
 	$upload_dir = "../uploads/";
-	
+
 	uploadImageFile($file,$upload_dir);
 	
 	function uploadImageFile($file,$dir)

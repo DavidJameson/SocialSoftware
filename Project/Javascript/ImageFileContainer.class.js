@@ -1,54 +1,107 @@
 //Class developed in order to organize different files and
 //its tag elements, also to make it easy to create a
 //box containain all the information to be displayed.
-function ImageFileContainer(file,name)
+function ImageFileContainer(image_file,image_name)
 {
-	var container = this;
+	var file = image_file;
+	var fileName = image_name;
+	var isFileUploaded = false;
+	var imageField;
+	var infoField;
+	var progressBar;	
+	var content;
 	
-	this.file = file;
-	this.fileName = name;
-	this.uploaded = false;
-	
-	this.imageField;
-	this.infoField;
-	this.progressBar;
-	this.content;
-	
-	
-	this.createContent = function()
+	var createContent = function()
 	{
-		container.content = document.createElement('div');
-		container.content.className = 'content';
-		container.createImageField('images');
-		container.createInfoField('info');
-		container.createProgressBar('progressBar');
-		console.log(container.content);
+		content = document.createElement('div');
+		content.className = 'content';
+		createImageField('images');
+		createInfoField('info');
+		createProgressBar('progressBar');
 	};
-	this.createImageField = function(className)
+	var createImageField = function(className)
 	{
-		container.imageField = document.createElement('img');
-		container.imageField.className = className;
-		container.imageField.src = window.URL.createObjectURL(file);
-		container.imageField.onload = function(e) 
+		imageField = document.createElement('img');
+		imageField.className = className;
+		imageField.src = window.URL.createObjectURL(file);
+		imageField.onload = function(e) 
 		{
 		      window.URL.revokeObjectURL(this.src);
 		}
-		container.content.appendChild(container.imageField);
+		content.appendChild(imageField);
 	};
-	this.createInfoField = function(className)
+	var createInfoField = function(className)
 	{
-		container.infoField = document.createElement('span');
-		container.infoField.className = className;
-		container.infoField.innerHTML = container.fileName;
-		container.content.appendChild(container.infoField);
+		infoField = document.createElement('span');
+		infoField.className = className;
+		infoField.innerHTML = fileName;
+		content.appendChild(infoField);
 	};
-	this.createProgressBar = function(className)
+	var createProgressBar = function(className)
 	{
-		container.progressBar = document.createElement('span');
-		container.progressBar.className = className;
-		container.progressBar.innerHTML = '0%';
-		container.content.appendChild(container.progressBar);
+		progressBar = document.createElement('span');
+		progressBar.className = className;
+		progressBar.innerHTML = '0%';
+		content.appendChild(progressBar);
 	};
 	
-	this.createContent();
+	/*-- Getters and Setters --*/
+	this.getFile = function()
+	{
+		return file;
+	};
+	this.setFile = function(file_ob)
+	{
+		file = file_ob;
+	};
+	this.getFileName = function()
+	{
+		return fileName;
+	};
+	this.setFileName = function(file_name)
+	{
+		fileName = file_name;
+	};
+	this.isUploaded = function()
+	{
+		return isFileUploaded;
+	};
+	this.setUploaded = function(isuploaded)
+	{
+		isFileUploaded = isuploaded;
+	};
+	this.getImageField = function()
+	{
+		return imageField;
+	};
+	this.setImageField = function(image_field)
+	{
+		imageField = image_field;
+	};
+	this.getInfoField = function()
+	{
+		return infoField;
+	};
+	this.setInfoField = function(info_field)
+	{
+		infoField = info_field;
+	};
+	this.getProgressBar = function()
+	{
+		return progressBar;
+	};
+	this.setProgressBar = function(progress_bar)
+	{
+		progressBar = progress_bar;
+	};
+	this.getContent = function()
+	{
+		return content;
+	};
+	this.setContent = function(cont)
+	{
+		content = cont;
+	};
+	
+	createContent();
 }

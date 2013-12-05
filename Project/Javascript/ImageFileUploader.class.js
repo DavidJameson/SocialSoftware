@@ -2,38 +2,38 @@
 //uploading multiples files
 function ImageFileUploader(fileInput,fileSelect,displayBox,files)
 {
-	var uploader = this;
-	this.fileInput = fileInput;
-	this.fileSelect = fileSelect;
-	this.displayBox = displayBox;
-	this.dropbox;
-	this.filesArray = new Array();
-	this.allowedTypes = ["image/jpg","image/jpeg","image/png"];
+	var fileInput = fileInput;
+	var fileSelect = fileSelect;
+	var displayBox = displayBox;
+	var dropbox;
+	var filesArray = new Array();
+	var allowedTypes = ["image/jpg","image/jpeg","image/png"];
 	
-	//Methods
-	//These functions can be called using an instance of this object
-	this.addFilesToArray = function(files)
+	//Inside Functions
+	//These functions are private, therefore can only be called from inside.
+	var addFilesToArray = function(files)
 	{
 		arraySize = files.length
 		for(var i = 0; i < arraySize; i++)
 		{
-			var isImage = uploader.isImageFile(files[i])
+			var isImage = isImageFile(files[i])
 			if(isImage)
 			{
 				name = files[i].name.replace(/\..+$/, ''); //removes files type from name
 				
 				var file = new ImageFileContainer(files[i],name);
-				uploader.filesArray.push(file);
+				filesArray.push(file);
 			}			
 		}
+		//console.log(filesArray[0].file);
 	};
-	this.isImageFile = function(file)
+	var isImageFile = function(file)
 	{
 		var fileType = file.type;
 		var imageFile = false;
-		for(type in uploader.allowedTypes)
+		for(type in allowedTypes)
 		{
-			if(uploader.allowedTypes[type] == fileType)
+			if(allowedTypes[type] == fileType)
 			{
 				imageFile = true;
 			}
@@ -41,56 +41,51 @@ function ImageFileUploader(fileInput,fileSelect,displayBox,files)
 		
 		return imageFile;
 	};
-	this.isFileSelected =function()
+	var handleFiles = function() 
+	{
+		processCompleted = false;
+		if(isFileSelected()) 
+		{
+			clearDisplayBox();
+			displaySelectedFiles();
+		}
+		else
+		{
+			displayBox.innerHTML = "<p>No files selected!</p>";
+		}
+		return processCompleted;
+	};
+	var displaySelectedFiles = function()
+	{
+		var container = document.createElement("div");
+		container.id = "container";
+		displayBox.appendChild(container);
+		
+	    for (var i = 0; i < filesArray.length; i++) 
+		{
+			fileContainer = filesArray[i];
+			if(!fileContainer.isUploaded())
+			{
+				container.appendChild(fileContainer.getContent());
+			}
+		}
+	};
+
+	var isFileSelected =function()
 	{
 		var isFileSelected = false;
-		if (uploader.filesArray.length > 0) 
+		if (filesArray.length > 0) 
 	  	{
 			isFileSelected = true;
 	  	}
 		return isFileSelected; 
-	};
-	this.dropboxSetup = function (domID)
-	{
-		uploader.dropbox = document.getElementById(domID);
-		uploader.dropbox.addEventListener("dragenter", dragenter, false);
-		uploader.dropbox.addEventListener("dragover", dragover, false);
-		uploader.dropbox.addEventListener("drop", drop, false);
-		
-		function dragenter(e) 
-		{
-		 	e.stopPropagation();
-			e.preventDefault();
-		}
-
-		function dragover(e) 
-		{
-			e.stopPropagation();
-			e.preventDefault();
-		}
-		function drop(e) 
-		{
-			e.stopPropagation();
-			e.preventDefault();
-
-			var dt = e.dataTransfer;
-			var files = dt.files;
-			console.log(files);
-			uploader.addFilesToArray(files);
-			uploader.handleFiles();          
-		}
-	};
+	};	
 	
-	this.uploadFiles = function()
+	var clearDisplayBox = function()
 	{
-		for(var i =0; i < uploader.filesArray.length; i++)
-		{
-			uploader.sendFile(uploader.filesArray[i]);
-		}
+		displayBox.innerHTML = '';
 	};
-	//Inside Functions
-	//These functions are private, therefore can only be called from inside.
-	this.sendFile = function(fileContainer) 
+	var sendFile = function(fileContainer) 
 	{
 			var uri = "PHP/ImageServerUploader.php";
             var xhr = new XMLHttpRequest();
@@ -115,73 +110,81 @@ function ImageFileUploader(fileInput,fileSelect,displayBox,files)
 		  		  	var percentage = Math.round((e.loaded * 100) / e.total);
 					if(percentage < 100)
 					{
-						fileContainer.progressBar.innerHTML = percentage+'%';
+						fileContainer.getProgressBar().innerHTML = percentage+'%';
 					}
 					else
 					{
-						fileContainer.progressBar.innerHTML = "Upload Completed";
+						fileContainer.getProgressBar().innerHTML = "Upload Completed";
+						fileContainer.setUploaded(true);
 					}
 					if(percentage > 5)
 					{
-						fileContainer.progressBar.style.backgroundSize = percentage-5+'%'+" 							100%";
+						fileContainer.getProgressBar().style.backgroundSize = percentage-5+'%'+" 							100%";
 					}
 				}
 			}, false);
 	
-            fd.append('myFile', fileContainer.file);
+            fd.append('myFile', fileContainer.getFile());
             // Initiate a multipart/form-data upload
             xhr.send(fd);
 	};
-
-	this.addEvents = function()
+	var addEvents = function()
 	{
-		uploader.fileSelect.addEventListener("click", function (e) 
+		fileSelect.addEventListener("click", function (e) 
 		{
-		  if (uploader.fileInput) 
+		  if (fileInput) 
 		  {
-		    uploader.fileInput.click();
+		    fileInput.click();
 		  }
 		  e.preventDefault(); // prevent navigation to "#"
 		}, false);
 		
-		uploader.fileInput.addEventListener("change",function (e)
+		fileInput.addEventListener("change",function (e)
 		{
-			uploader.addFilesToArray(uploader.fileInput.files);
-			uploader.handleFiles(); 
+			addFilesToArray(fileInput.files);
+			handleFiles(); 
 		},false);
 	};
+	addEvents();
 	
-	this.handleFiles = function() 
+	//Methods (Public Functions)
+	this.dropboxSetup = function (domID)
 	{
-		processCompleted = false;
-		if(uploader.isFileSelected()) 
-		{
-			uploader.clearDisplayBox();
-			uploader.displaySelectedFiles();
-		}
-		else
-		{
-			uploader.displayBox.innerHTML = "<p>No files selected!</p>";
-		}
-		return processCompleted;
-	};
-	
-	this.clearDisplayBox = function()
-	{
-		uploader.displayBox.innerHTML = '';
-	};
-	this.displaySelectedFiles = function()
-	{
-		var container = document.createElement("div");
-		container.id = "container";
-		uploader.displayBox.appendChild(container);
+		dropbox = document.getElementById(domID);
+		dropbox.addEventListener("dragenter", dragenter, false);
+		dropbox.addEventListener("dragover", dragover, false);
+		dropbox.addEventListener("drop", drop, false);
 		
-	    for (var i = 0; i < uploader.filesArray.length; i++) 
+		function dragenter(e) 
 		{
-			fileContainer = uploader.filesArray[i].content;
-			container.appendChild(fileContainer);		    
+		 	e.stopPropagation();
+			e.preventDefault();
+		}
+
+		function dragover(e) 
+		{
+			e.stopPropagation();
+			e.preventDefault();
+		}
+		function drop(e) 
+		{
+			e.stopPropagation();
+			e.preventDefault();
+
+			var dt = e.dataTransfer;
+			var files = dt.files;
+			addFilesToArray(files);
+			handleFiles();          
 		}
 	};
-	
-	this.addEvents();
+	this.uploadFiles = function()
+	{
+		for(var i =0; i < filesArray.length; i++)
+		{
+			if(!filesArray[i].isUploaded())
+			{
+				sendFile(filesArray[i]);	
+			}
+		}
+	};
 }
