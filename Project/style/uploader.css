@@ -7,6 +7,8 @@
 	border: 2px solid gray;
 	border-top-left-radius:.4em;
 	border-top-right-radius:.4em;
+	
+	background-color: #b5babf;
 }
 #uploadArea #menu
 {
@@ -14,6 +16,7 @@
 	height: 40px;
 	display: block;
 	border-bottom: 2px outset gray;
+	background-color: #65636b;
 }
 #uploadArea #menu .menuButton
 {
@@ -32,9 +35,14 @@
 	margin-top: 5px;
 	margin-bottom: 5px;
 	
-	border: 2px dotted green;
+	border: 1px dotted gray;
 	text-align: center;
 	display: block;
+	
+	background: -webkit-linear-gradient(left, #96949c,#85838B); /* For Safari */
+	background: -o-linear-gradient(right, #96949c,#85838B); /* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(right, #96949c,#85838B); /* For Firefox 3.6 to 15 */
+	background: linear-gradient(to right, #96949c,#85838B); /* Standard syntax */
 }
 #uploadArea #fileList
 {
@@ -46,7 +54,7 @@
 	margin-top: 5px;
 	margin-bottom: 5px;
 	text-align: center;
-	
+		
 }
 #uploadArea #fileList .content
 {
@@ -54,8 +62,14 @@
 	float: left;
 	margin: 1%;
 	
-	border: 2px inset green;
+	border: 1px solid #65636b;
+	text-align: center;
 	display: block-inline;
+	
+	background: -webkit-linear-gradient(left, #b5babf, #65636b); /* For Safari */
+	background: -o-linear-gradient(right, #b5babf, #65636b); /* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(right, #b5babf, #65636b); /* For Firefox 3.6 to 15 */
+	background: linear-gradient(to right, #b5babf, #65636b); /* Standard syntax */
 }
 #uploadArea #fileList .images
 {
@@ -71,16 +85,22 @@
 {
 	color: green;
 	width: 95%;
-	height: 70px;
+	height: auto;
 	
 	margin-left: 2.5%;
 	margin-right: 2.5%;
 	margin-top: 5px;
 	margin-bottom: 5px;
 	
+	font-size: 12px;
+	font-style: normal;
+	font-weight: bold;
+	text-align: center;
+	display: block;
 	text-align: center;
 	word-wrap: break-word;
-	display: block;
+	display: inline-block;
+
 }
 #uploadArea #fileList .progressBar
 {
@@ -90,17 +110,21 @@
 	margin-right: 2.5%;
 	margin-top: 5px;
 	margin-bottom: 5px;
+	
+	font-size: 12px;
+	font-style: normal;
+	font-weight: bold;
 	text-align: center;
 	display: block;
 	
-	background: -webkit-linear-gradient(left, green, white); /* For Safari */
-	background: -o-linear-gradient(right, green, white); /* For Opera 11.1 to 12.0 */
-	background: -moz-linear-gradient(right, green, white); /* For Firefox 3.6 to 15 */
-	background: linear-gradient(to right, green, white); /* Standard syntax */
+	background: -webkit-linear-gradient(left, #32693f, #77ea83); /* For Safari */
+	background: -o-linear-gradient(right, #32693f, #77ea83); /* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(right, #32693f, #77ea83); /* For Firefox 3.6 to 15 */
+	background: linear-gradient(to right, #32693f, #77ea83); /* Standard syntax */
 	
 	background-size: 0% 100%;
 	background-repeat:no-repeat;
 
-	border: 1px outset green;
+	border: 1px solid #65636b;
 	border-radius:25px;
 }

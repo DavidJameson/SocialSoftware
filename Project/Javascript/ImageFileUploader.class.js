@@ -98,7 +98,7 @@ function ImageFileUploader(fileInput,fileSelect,displayBox,files)
 					 
                     if(xhr.responseText.length > 0)
 					{
-						alert(xhr.responseText);
+						fileContainer.getProgressBar().innerHTML = (xhr.responseText);
 					} 
                 }
             };
@@ -108,18 +108,17 @@ function ImageFileUploader(fileInput,fileSelect,displayBox,files)
 		  	  if (e.lengthComputable) 
 				{
 		  		  	var percentage = Math.round((e.loaded * 100) / e.total);
-					if(percentage < 100)
+					if(percentage == 100)
 					{
-						fileContainer.getProgressBar().innerHTML = percentage+'%';
+						fileContainer.setUploaded(true);
 					}
 					else
 					{
-						fileContainer.getProgressBar().innerHTML = "Upload Completed";
-						fileContainer.setUploaded(true);
+						fileContainer.getProgressBar().innerHTML = percentage+'%';
 					}
 					if(percentage > 5)
 					{
-						fileContainer.getProgressBar().style.backgroundSize = percentage-5+'%'+" 							100%";
+						fileContainer.getProgressBar().style.backgroundSize = percentage+'%'+" 							100%";
 					}
 				}
 			}, false);

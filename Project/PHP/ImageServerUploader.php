@@ -10,7 +10,10 @@
 		
 		if(isImageFile($ext) && noFileError($file) && noDuplicate($file,$dir))
 		{
-			move_uploaded_file($file['tmp_name'],$dir.$file['name']);
+			if(move_uploaded_file($file['tmp_name'],$dir.$file['name']))
+			{
+				echo "File Uploaded";
+			}
 		}
 		elseif(!isImageFile($ext))
 		{
@@ -22,7 +25,7 @@
 		}
 		elseif(!noDuplicate($file,$dir))
 		{
-			echo "File: ".removeFileExtension($file['name'])."\nAlready exists.";
+			echo "Already exists";
 		}
 	}
 	function removeFileExtension($file_name)
