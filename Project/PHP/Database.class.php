@@ -44,6 +44,73 @@
 				echo 'ID: '.$userID.'	Username: '.$username.'	Password: '.$password.'<br/>';
 			}
 		}
+		public function insertImage()
+		{
+			
+		}
+		public function createInsertSQL($arrayData,$table)
+		{
+			$query = $this->generateInsertInto($arrayData['columns'],$table);
+			$query = $query.$this->generateValues($arrayData['values']);
+			
+			echo $query;
+		}
+		public function generateInsertInto($arrayColumns,$table)
+		{
+			$query = "INSERT INTO ".$table."(";
+			
+			foreach($arrayColumns as $column)
+			{
+				
+				 $query = $query.$column;
+				 if($this->isLastIndex($arrayColumns,$column))
+				 {
+				 	$query = $query.')';
+				 }
+				 else
+				 {
+				 	$query = $query.',';
+				 }
+			}
+			
+			return $query;
+		}
+		public function generateValues($arrayFieldValues)
+		{
+			$query = '';
+			foreach($arrayFieldValues as $valueField)
+			{
+				$query2 = "VALUES(";
+				foreach($valueField as $fieldData)
+				{
+					$query2 = $query2.$fieldData;
+					if($this->isLastIndex($valueField,$fieldData))
+				 	{
+				 		$query2 = $query2.')';
+				 	}
+				 	else
+				 	{
+				 		$query2 = $query2.',';
+				 	}
+				}
+				if($this->isLastIndex($arrayFieldValues,$valueField))
+				{
+					$query2 = $query2.';';
+				}
+				else
+				{
+					$query2 = $query2.',';
+				}
+				$query = $query.$query2;
+			}
+			
+			return $query;
+		}
+		public function isLastIndex($array,$element)
+		{
+			return ($element == end($array));
+		}
+		
 	}
 	
 ?>
