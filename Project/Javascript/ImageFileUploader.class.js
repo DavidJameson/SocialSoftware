@@ -92,7 +92,7 @@ function ImageFileUploader(fileInput,fileSelect,displayBox,files)
 	//These functions are private, therefore can only be called from inside.
 	this.sendFile = function(fileContainer) 
 	{
-			var uri = "PHP/serverUploader.php";
+			var uri = "PHP/ImageServerUploader.php";
             var xhr = new XMLHttpRequest();
             var fd = new FormData();
             
@@ -100,7 +100,11 @@ function ImageFileUploader(fileInput,fileSelect,displayBox,files)
             xhr.onreadystatechange = function() {
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     // Handle response.
-                    //alert(xhr.responseText); // handle response.
+					 
+                    if(xhr.responseText.length > 0)
+					{
+						alert(xhr.responseText);
+					} 
                 }
             };
 			
