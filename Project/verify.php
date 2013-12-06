@@ -34,7 +34,7 @@ function create_folder($u)
 {
 	$iddata = mysql_query("SELECT * FROM users WHERE username='$u'");
 	$id = mysql_fetch_array($iddata);
-	$dir_path = './user_home/'.$id['user_id'].'_home';
+	$dir_path = '/user_home/'.$id['user_id'].'_home';
 	store_directory($dir_path, $u);
 	mkdir($dir_path);
 }
