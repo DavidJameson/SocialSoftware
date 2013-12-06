@@ -18,7 +18,8 @@
 		public function connect()
 		{
 			$successful = true;
-			$this->connection = mysqli_connect($this->host,$this->username,$this->password,$this->dbName);
+			$this->connection = mysqli_connect
+			($this->host,$this->username,$this->password,$this->dbName);
 			
 			if(mysqli_connect_errno($this->connection))
 			{
@@ -43,6 +44,30 @@
 				
 				echo 'ID: '.$userID.'	Username: '.$username.'	Password: '.$password.'<br/>';
 			}
+		}
+		public function getUserHome($username)
+		{
+			$field = 'home_path';
+			$query = "select ".$field." from users where username ='".$username."'";
+			$result = mysqli_query($this->connection,$query);
+			$row = mysqli_fetch_array($result);
+			return $row['home_path'];
+		}
+		public function getUserEmail($username)
+		{
+			$field = 'email';
+			$query = "select ".$field." from users where username ='".$username."'";
+			$result = mysqli_query($this->connection,$query);
+			$row = mysqli_fetch_array($result);
+			return $row['home_path'];
+		}
+		public function getUserID($username)
+		{
+			$field = 'user_id';
+			$query = "select ".$field." from users where username ='".$username."'";
+			$result = mysqli_query($this->connection,$query);
+			$row = mysqli_fetch_array($result);
+			return $row['home_path'];
 		}
 		public function insertImage()
 		{

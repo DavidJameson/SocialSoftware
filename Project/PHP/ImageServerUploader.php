@@ -1,6 +1,20 @@
 <?php
+	require 'Credential.class.php'; //stores host info
+	require 'Database.class.php';
+	session_start();
+	$user = $_SESSION['usr'];
+	$credential = new Credential();
+	$hostAddress = $credential->getHost();
+	$username = $credential->getUsername();
+	$password = $credential->getPassword();
+	$databaseName = $credential->getDBName();
+	
+	$database = new Database($hostAddress,$username,$password,$databaseName);
+	$database->connect();	
+	
+	
 	$file = ($_FILES['myFile']);
-	$upload_dir = "../uploads/";
+	$upload_dir = '..'.$database->getUserHome($user).'/';
 
 	uploadImageFile($file,$upload_dir);
 	
