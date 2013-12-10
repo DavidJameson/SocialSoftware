@@ -1,6 +1,6 @@
 #uploadArea
 {
-	width: 90%;
+	width: 700px;
 	height: auto;
 	margin-left: auto;
 	margin-right: auto;
@@ -14,7 +14,7 @@
 }
 #uploadArea #uploadMenu
 {
-	width: 100%;
+	width: 300px;
 	height: 40px;
 	display: block;
 	border-bottom: 2px outset gray;
@@ -49,7 +49,7 @@
 }
 #uploadArea #fileList
 {
-	width: 80%;
+	width: 600px;
 	height: auto;
 	overflow: auto;
 	margin-left: auto;
@@ -60,39 +60,40 @@
 }
 #uploadArea #fileList .content
 {
-	width: 30.5%;
+	width: 98%;
 	float: left;
-	margin: 1%;
-	
+	margin-top: 5px;
 	border: 1px solid #65636b;
 	text-align: center;
-	display: block-inline;
+	display: inline;
 	
 	background: -webkit-linear-gradient(left, #b5babf, #65636b); /* For Safari */
 	background: -o-linear-gradient(right, #b5babf, #65636b); /* For Opera 11.1 to 12.0 */
 	background: -moz-linear-gradient(right, #b5babf, #65636b); /* For Firefox 3.6 to 15 */
 	background: linear-gradient(to right, #b5babf, #65636b); /* Standard syntax */
 }
-#uploadArea #fileList .images
+#uploadArea .content .mainInfo
 {
-	width: 95%;
-	height: 100px;
+	float:left;
+	width: 45%;
+	height: 200px;
 	display: block;
 	margin-left: 2.5%;
 	margin-right: 2.5%;
 	margin-top: 5px;
-	margin-bottom: 5px;
+	margin-bottom: 5px;	
 }
-#uploadArea #fileList .info
+#uploadArea .mainInfo .images
+{
+	width: 100%;
+	height: 100px;
+	display: block;
+}
+#uploadArea .mainInfo .info
 {
 	color: green;
-	width: 95%;
+	width: 100%;
 	height: auto;
-	
-	margin-left: 2.5%;
-	margin-right: 2.5%;
-	margin-top: 5px;
-	margin-bottom: 5px;
 	
 	font-size: 12px;
 	font-style: normal;
@@ -102,14 +103,13 @@
 	text-align: center;
 	word-wrap: break-word;
 	display: inline-block;
-
 }
-#uploadArea #fileList .progressBar
+#uploadArea .mainInfo .progressBar
 {
 	width: 95%;
 	height: 20px;
-	margin-left: 2.5%;
-	margin-right: 2.5%;
+	margin-left: auto;
+	margin-right: auto;
 	margin-top: 5px;
 	margin-bottom: 5px;
 	
@@ -130,4 +130,28 @@
 
 	border: 1px solid #65636b;
 	border-radius:25px;
+}
+
+#uploadArea .content .userInput
+{
+	float: right;
+	width: 45%;
+	height: 200px;
+	display: block;
+	margin-left: 2.5%;
+	margin-right: 2.5%;
+	margin-top: 5px;
+	margin-bottom: 5px;	
+}
+#uploadArea .userInput .name_input
+{
+	width: 90%;
+	height: 25px;
+	margin-top: 2px;
+}
+#uploadArea .userInput .description_input
+{
+	width: 90%;
+	height: 150px;
+	margin-top: 2px;
 }

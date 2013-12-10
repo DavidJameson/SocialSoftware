@@ -8,10 +8,12 @@
 		private $database;
 		private $user;
 		private $file;
+		private $name;
+		private $description;
 		private $directory;
 		private $image_id;
 		
-		function __construct($user,$file)
+		function __construct($user,$file,$name,$description)
 		{
 			$this->credential = new Credential();
 			$this->database = new Database
@@ -24,6 +26,8 @@
 								
 			$this->user = $user;
 			$this->file = $file;
+			$this->name = $name;
+			$this->description = $description;
 			$this->image_id = uniqid();
 			$this->directory = $this->generateDirectory();
 		}
@@ -38,14 +42,14 @@
 		}
 		public function uploadImageFile()
 		{
-			$ext = $this->getFileExtension($this->file['name']);
+			$ext = $this->getFileExtension($this->name);
 			
 			if($this->isImageFile($ext) && $this->noFileError() && $this->noDuplicate())
 			{
 				if(move_uploaded_file($this->file['tmp_name'],$this->directory))
 				{
 					$this->database
-					->insertImage($this->image_id,$this->file['name'],$this->user,
+					->insertImage($this->image_id,$this->name,$this->user,
 					$this->directory,'not description yet',0);
 					
 					echo "File Uploaded";
