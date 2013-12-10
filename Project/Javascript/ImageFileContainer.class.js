@@ -8,16 +8,34 @@ function ImageFileContainer(image_file,image_name)
 	var isFileUploaded = false;
 	var imageField;
 	var infoField;
-	var progressBar;	
+	var progressBar;
+	
+	var nameInput;
+	var descriptionInput;
+		
 	var content;
+	var mainInfo;
+	var userInput;
 	
 	var createContent = function()
 	{
 		content = document.createElement('div');
 		content.className = 'content';
+		
+		mainInfo = document.createElement('div');
+		mainInfo.className = 'mainInfo';
+		
+		userInput = document.createElement('div');
+		userInput.className = 'userInput';
+		
 		createImageField('images');
 		createInfoField('info');
 		createProgressBar('progressBar');
+		content.appendChild(mainInfo);
+		
+		createNameInput('name_input');
+		createDescriptionInput('description_input');
+		content.appendChild(userInput);
 	};
 	var createImageField = function(className)
 	{
@@ -28,23 +46,68 @@ function ImageFileContainer(image_file,image_name)
 		{
 		      window.URL.revokeObjectURL(this.src);
 		}
-		content.appendChild(imageField);
+		mainInfo.appendChild(imageField);
 	};
 	var createInfoField = function(className)
 	{
 		infoField = document.createElement('span');
 		infoField.className = className;
 		infoField.innerHTML = fileName;
-		content.appendChild(infoField);
+		mainInfo.appendChild(infoField);
 	};
 	var createProgressBar = function(className)
 	{
 		progressBar = document.createElement('span');
 		progressBar.className = className;
 		progressBar.innerHTML = '0%';
-		content.appendChild(progressBar);
+		mainInfo.appendChild(progressBar);
 	};
 	
+	var createNameInput = function(className)
+	{
+		nameInput = document.createElement('input');
+		nameInput.className = className;
+		nameInput.type = 'text';
+		nameInput.placeholder = "name your image...";
+		
+		//nameLabel = document.createElement('label');
+		//nameLabel.innerHTML = "Name :";
+		//userInput.appendChild(nameLabel);
+		userInput.appendChild(nameInput);
+	};
+	var createDescriptionInput = function(className)
+	{
+		descriptionInput = document.createElement('textarea');
+		descriptionInput.className = className;
+		descriptionInput.rows = 10;
+		descriptionInput.cols = 30;
+		descriptionInput.maxlength = 300;
+		descriptionInput.placeholder = "Describe your image...";
+		
+		//descLabel = document.createElement('label');
+		//descLabel.innerHTML = "Image Description :";
+		//userInput.appendChild(descLabel);
+		userInput.appendChild(descriptionInput);
+	};
+	/* public functions */
+	this.isNameInputEmpty = function()
+	{
+		isEmpty = false;
+		if(nameInput.value == "")
+		{
+			isEmpty = true;
+		}
+		return isEmpty;		
+	};
+	this.isDescriptionInputEmpty = function()
+	{
+		isEmpty = false;
+		if(descriptionInput.value == "")
+		{
+			isEmpty = true;
+		}
+		return isEmpty;
+	};
 	/*-- Getters and Setters --*/
 	this.getFile = function()
 	{
@@ -101,6 +164,22 @@ function ImageFileContainer(image_file,image_name)
 	this.setContent = function(cont)
 	{
 		content = cont;
+	};
+	this.getNameInput = function()
+	{
+		return nameInput;
+	};
+	this.setNameInput = function(nameInput_val)
+	{
+		nameInput = nameInput_val;
+	};
+	this.getDescriptionInput = function()
+	{
+		return descriptionInput;
+	};
+	this.setDescriptionInput = function(descriptionInput_val)
+	{
+		descriptionInput = descriptionInput_val;
 	};
 	
 	createContent();

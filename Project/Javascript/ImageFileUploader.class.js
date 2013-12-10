@@ -87,9 +87,11 @@ function ImageFileUploader(fileInput,fileSelect,displayBox,files)
 	};
 	var sendFile = function(fileContainer) 
 	{
+		if(!fileContainer.isNameInputEmpty() && !fileContainer.isDescriptionInputEmpty())
+		{		
 			var uri = "PHP/ImageServerUploader.php";
             var xhr = new XMLHttpRequest();
-            var fd = new FormData();
+            var fileData = new FormData();
             
             xhr.open("POST", uri, true);
             xhr.onreadystatechange = function() {
@@ -124,9 +126,19 @@ function ImageFileUploader(fileInput,fileSelect,displayBox,files)
 				}
 			}, false);
 	
-            fd.append('myFile', fileContainer.getFile());
+            fileData.append('myFile', fileContainer.getFile());
+			fileData.append('nameInput',fileContainer.getNameInput().value);
+			fileData.append('descriptionInput',fileContainer.getDescriptionInput().value);
+			
             // Initiate a multipart/form-data upload
-            xhr.send(fd);
+            xhr.send(fileData);
+		}
+		else
+		{
+			alert("Plase fill in image's name and descript.");
+			fileContainer.getNameInput().style.border = "1px solid red";
+			fileContainer.getDescriptionInput().style.border = "1px solid red";
+		}
 	};
 	var addEvents = function()
 	{
