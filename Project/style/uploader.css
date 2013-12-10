@@ -63,6 +63,7 @@
 	width: 98%;
 	float: left;
 	margin-top: 5px;
+	padding-top: 5px;
 	border: 1px solid #65636b;
 	text-align: center;
 	display: inline;
@@ -75,13 +76,9 @@
 #uploadArea .content .mainInfo
 {
 	float:left;
-	width: 45%;
+	width: 50%;
 	height: 200px;
 	display: block;
-	margin-left: 2.5%;
-	margin-right: 2.5%;
-	margin-top: 5px;
-	margin-bottom: 5px;	
 }
 #uploadArea .mainInfo .images
 {
@@ -135,23 +132,19 @@
 #uploadArea .content .userInput
 {
 	float: right;
-	width: 45%;
+	width: 50%;
 	height: 200px;
-	display: block;
-	margin-left: 2.5%;
-	margin-right: 2.5%;
-	margin-top: 5px;
-	margin-bottom: 5px;	
+	display: block;	
 }
 #uploadArea .userInput .name_input
 {
 	width: 90%;
 	height: 25px;
-	margin-top: 2px;
+	margin-bottom: 2px;
 }
 #uploadArea .userInput .description_input
 {
 	width: 90%;
 	height: 150px;
-	margin-top: 2px;
+	margin-bottom: 2px;
 }

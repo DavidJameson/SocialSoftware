@@ -5,10 +5,13 @@ function ImageFileContainer(image_file,image_name)
 {
 	var file = image_file;
 	var fileName = image_name;
+
 	var isFileUploaded = false;
+	
 	var imageField;
 	var infoField;
 	var progressBar;
+	var sendButton;
 	
 	var nameInput;
 	var descriptionInput;
@@ -31,6 +34,7 @@ function ImageFileContainer(image_file,image_name)
 		createImageField('images');
 		createInfoField('info');
 		createProgressBar('progressBar');
+		createSendButton('sendButton');
 		content.appendChild(mainInfo);
 		
 		createNameInput('name_input');
@@ -61,6 +65,14 @@ function ImageFileContainer(image_file,image_name)
 		progressBar.className = className;
 		progressBar.innerHTML = '0%';
 		mainInfo.appendChild(progressBar);
+	};
+	var createSendButton = function(className)
+	{
+		sendButton = document.createElement('button');
+		sendButton.className = className;
+		sendButton.id = fileName;
+		sendButton.innerHTML = 'Upload';
+		mainInfo.appendChild(sendButton);
 	};
 	
 	var createNameInput = function(className)
@@ -181,6 +193,9 @@ function ImageFileContainer(image_file,image_name)
 	{
 		descriptionInput = descriptionInput_val;
 	};
-	
+	this.getSendButton = function()
+	{
+		return sendButton;
+	}
 	createContent();
 }

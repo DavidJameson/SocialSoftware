@@ -116,7 +116,7 @@ $data = mysql_fetch_array($query);
 			<div id="uploadMenu">
 				<input type='file' id="fileInput" multiple style="display: none;"/>
 				<button class="menuButton" id="fileSelect">Add Images</button>
-				<button class="menuButton" id="send">Send</button>
+				<button class="menuButton" id="send">Upload All</button>
 			</div>
 			<span id="dropbox">
 				<p>Drop Images Here</p>

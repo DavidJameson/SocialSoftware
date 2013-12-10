@@ -13,19 +13,26 @@ function ImageFileUploader(fileInput,fileSelect,displayBox,files)
 	//These functions are private, therefore can only be called from inside.
 	var addFilesToArray = function(files)
 	{
-		arraySize = files.length
+		arraySize = files.length;
 		for(var i = 0; i < arraySize; i++)
 		{
-			var isImage = isImageFile(files[i])
+			var isImage = isImageFile(files[i]);
 			if(isImage)
 			{
-				name = files[i].name.replace(/\..+$/, ''); //removes files type from name
+				name = files[i].name.replace(/\..+$/, ''); //removes file's type from name
+				fileContainer = new ImageFileContainer(files[i],name);
+				sendButton = fileContainer.getSendButton();
+				$(sendButton).bind('click',
+				{container: fileContainer},function(e)
+				{
+					
+					sendFile(e.data.container);
+					e.preventDefault();
+				});
 				
-				var file = new ImageFileContainer(files[i],name);
-				filesArray.push(file);
+				filesArray.push(fileContainer);
 			}			
 		}
-		//console.log(filesArray[0].file);
 	};
 	var isImageFile = function(file)
 	{
@@ -86,13 +93,16 @@ function ImageFileUploader(fileInput,fileSelect,displayBox,files)
 		displayBox.innerHTML = '';
 	};
 	var sendFile = function(fileContainer) 
-	{
+	{		
 		if(!fileContainer.isNameInputEmpty() && !fileContainer.isDescriptionInputEmpty())
 		{		
 			var uri = "PHP/ImageServerUploader.php";
             var xhr = new XMLHttpRequest();
             var fileData = new FormData();
-            
+			
+            fileContainer.getNameInput().style.border = "1px solid white";
+			fileContainer.getDescriptionInput().style.border = "1px solid white";
+			
             xhr.open("POST", uri, true);
             xhr.onreadystatechange = function() {
                 if (xhr.readyState == 4 && xhr.status == 200) {
