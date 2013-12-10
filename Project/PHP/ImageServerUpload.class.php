@@ -114,7 +114,7 @@
 		public function generateDirectory()
 		{
 			$dir = '..'.$this->database->getUserHome($this->user).'/'.
-			$this->image_id;
+			$this->image_id.'.'.$this->getFileExtension();
 			return $dir;
 		}
 		//Getters and Setters
