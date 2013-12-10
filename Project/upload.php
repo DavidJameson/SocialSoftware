@@ -1,4 +1,6 @@
 <?php
+mysql_connect("Pixelgraphy.db.11837707.hostedresource.com", "Pixelgraphy", "P@web2013") or die (mysql_error()); 
+mysql_select_db("Pixelgraphy")or die(mysql_error());
 if(session_id() == "")
 {
 	session_start();
@@ -18,6 +20,9 @@ function getUserName()
 {
 	return $_SESSION['usr'];
 }
+$uuid = $_SESSION['id'];
+$query = mysql_query("SELECT * FROM uprofile WHERE user_id='$uuid'");
+$data = mysql_fetch_array($query);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,7 +56,7 @@ function getUserName()
 
             <ul>
                 <li>
-					<a id="global_profile" href="#">Global Feed</a>
+					<a id="global_profile" href="globalfeed.php">Global Feed</a>
 				</li>
 				
                 <li>
@@ -63,10 +68,10 @@ function getUserName()
 				</li>
 				
                 <li class="menu-item-divided">
-                    <a id="settings_profile" href="#">Settings</a>
+                    <a id="settings_profile" href="settings.php">Settings</a>
                 </li>
 				
-                <li><a id="logout_profile" href="#">Logout</a></li>
+                <li><a id="logout_profile" href="session_kill.php">Logout</a></li>
             </ul>
         </div>
     </div>
@@ -87,7 +92,19 @@ function getUserName()
                     </h1>
 
                     <h2 class="splash-subhead">
-                        User Info.
+                        Full Name: <?php echo $data['fullname']; ?>
+						<br/>
+						Gender: <?php echo $data['gender']; ?>
+						<br/>
+						Nickname: <?php echo $data['nickname']; ?>
+						<br/>
+						Major: <?php echo $data['major']; ?>
+						<br/>
+						Personal e-mail: <?php echo $data['personal_email']; ?>
+						<br/>
+						Hometown/State: <?php echo $data['hometown'] . ', ' . $data['homestate']; ?>
+						<br/>
+						Relationship Status: <?php echo $data['relationship']; ?>
                     </h2>
                 </div>
             </div>

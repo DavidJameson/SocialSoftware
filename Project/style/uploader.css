@@ -14,13 +14,13 @@
 }
 #uploadArea #uploadMenu
 {
-	width: 300px;
+	width: 100%;
 	height: 40px;
 	display: block;
 	border-bottom: 2px outset gray;
 	background-color: #65636b;
 }
-#uploadArea #uploadMenu .menuButton
+#uploadMenu .menuButton
 {
 	width: 100px;
 	height: 25px;

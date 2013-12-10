@@ -59,7 +59,7 @@ catch(Exception $ex)
 function email_verify($u, $e, $h)
 {
 	//Code for verification email
-	$vurl 	 = 'http://www.pixelgraphy.net/project/Project/verify.php?usr='.$u.'&hash='.$h;
+	$vurl 	 = 'http://www.pixelgraphy.net/verify.php?usr='.$u.'&hash='.$h;
 	$to      = $e;
 	$subject = 'Verify your account with Pixelgraphy';
 	$message = 'Please click the following link to verify your account: ' . $vurl;

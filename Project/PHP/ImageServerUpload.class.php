@@ -50,7 +50,7 @@
 				{
 					$this->database
 					->insertImage($this->image_id,$this->name,$this->user,
-					$this->directory,'not description yet',0);
+					$this->directory,$this->description,0);
 					
 					echo "File Uploaded";
 				}
@@ -114,7 +114,7 @@
 		public function generateDirectory()
 		{
 			$dir = '..'.$this->database->getUserHome($this->user).'/'.
-			$this->image_id."_".$this->file['name'];
+			$this->image_id;
 			return $dir;
 		}
 		//Getters and Setters
