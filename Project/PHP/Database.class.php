@@ -14,6 +14,7 @@
 			$this->username = $u_entry;
 			$this->password = $p_entry;
 			$this->dbName = $db_entry;
+			$this->connect();
 		}
 		public function connect()
 		{
@@ -42,7 +43,8 @@
 				$username = $row['username'];
 				$password = $row['password'];
 				
-				echo 'ID: '.$userID.'	Username: '.$username.'	Password: '.$password.'<br/>';
+				echo 'ID: '.$userID.'	Username: '.$username.
+				'	Password: '.$password.'<br/>';
 			}
 		}
 		public function getUserHome($username)
@@ -67,18 +69,57 @@
 			$query = "select ".$field." from users where username ='".$username."'";
 			$result = mysqli_query($this->connection,$query);
 			$row = mysqli_fetch_array($result);
-			return $row['home_path'];
+			return $row['user_id'];
 		}
-		public function insertImage()
+		public function getTime()
 		{
+			return date('l jS \of F Y h:i:s A');
+		}
+		public function insertImage($image_id,$name,$username,
+		$directory,$description,$privacy)
+		{
+			$table = 'images';
+			$values = array
+			(
+				"columns"=>array
+				(
+					'id',
+					'name',
+					'user_id',
+					'description',
+					'privacy',
+					'directory',
+					'date'
+				),
+				"values"=>array
+				(
+					array
+					(
+						"'".$image_id."'",
+						"'".$name."'",
+						"'".$this->getUserID($username)."'",
+						"'".$description."'",
+						"'".$privacy."'",
+						"'".$directory."'",
+						"'".$this->getTime()."'"
+						
+					)
+				)
+			);
 			
+			$query = $this->createInsertSQL($values,$table);
+
+			if(!mysqli_query($this->getConnection(),$query))
+			{
+				echo mysqli_error($this->getConnection());
+			}
 		}
 		public function createInsertSQL($arrayData,$table)
 		{
 			$query = $this->generateInsertInto($arrayData['columns'],$table);
 			$query = $query.$this->generateValues($arrayData['values']);
 			
-			echo $query;
+			return $query;
 		}
 		public function generateInsertInto($arrayColumns,$table)
 		{
@@ -98,14 +139,14 @@
 				 }
 			}
 			
-			return $query;
+			return $query; 
 		}
 		public function generateValues($arrayFieldValues)
 		{
 			$query = '';
 			foreach($arrayFieldValues as $valueField)
 			{
-				$query2 = "VALUES(";
+				$query2 = " VALUES(";
 				foreach($valueField as $fieldData)
 				{
 					$query2 = $query2.$fieldData;
@@ -118,21 +159,19 @@
 				 		$query2 = $query2.',';
 				 	}
 				}
-				if($this->isLastIndex($arrayFieldValues,$valueField))
-				{
-					$query2 = $query2.';';
-				}
-				else
+				
+				/*if(!$this->isLastIndex($arrayFieldValues,$valueField))
 				{
 					$query2 = $query2.',';
-				}
+				}*/
 				$query = $query.$query2;
+				
 			}
-			
 			return $query;
 		}
 		public function isLastIndex($array,$element)
 		{
+			//echo "element: ".$element." end: ".end($array).'<br/>';
 			return ($element == end($array));
 		}
 		
