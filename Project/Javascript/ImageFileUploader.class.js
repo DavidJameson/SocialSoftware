@@ -64,16 +64,12 @@ function ImageFileUploader(fileInput,fileSelect,displayBox,files)
 	};
 	var displaySelectedFiles = function()
 	{
-		var container = document.createElement("div");
-		container.id = "container";
-		displayBox.appendChild(container);
-		
 	    for (var i = 0; i < filesArray.length; i++) 
 		{
 			fileContainer = filesArray[i];
 			if(!fileContainer.isUploaded())
 			{
-				container.appendChild(fileContainer.getContent());
+				displayBox.appendChild(fileContainer.getContent());
 			}
 		}
 	};
@@ -94,7 +90,7 @@ function ImageFileUploader(fileInput,fileSelect,displayBox,files)
 	};
 	var sendFile = function(fileContainer) 
 	{		
-		if(!fileContainer.isNameInputEmpty() && !fileContainer.isDescriptionInputEmpty())
+		if(!fileContainer.isNameInputEmpty() && !fileContainer.isDescriptionInputEmpty() && !fileContainer.isUploaded())
 		{		
 			var uri = "PHP/ImageServerUploader.php";
             var xhr = new XMLHttpRequest();
@@ -143,11 +139,15 @@ function ImageFileUploader(fileInput,fileSelect,displayBox,files)
             // Initiate a multipart/form-data upload
             xhr.send(fileData);
 		}
-		else
+		else if(fileContainer.isNameInputEmpty() || fileContainer.isDescriptionInputEmpty())
 		{
 			alert("Plase fill in image's name and descript.");
 			fileContainer.getNameInput().style.border = "1px solid red";
 			fileContainer.getDescriptionInput().style.border = "1px solid red";
+		}
+		else if(fileContainer.isUploaded())
+		{
+			alert("file has already been uploaded.");
 		}
 	};
 	var addEvents = function()

@@ -49,44 +49,44 @@
 }
 #uploadArea #fileList
 {
-	width: 600px;
+	width: 100%;
 	height: auto;
 	overflow: auto;
-	margin-left: auto;
-	margin-right: auto;
 	margin-top: 5px;
 	margin-bottom: 5px;
 	text-align: center;
 }
-#uploadArea #fileList .content
+#fileList .image_content
 {
-	width: 98%;
-	float: left;
-	margin-top: 5px;
-	padding-top: 5px;
-	border: 1px solid #65636b;
-	text-align: center;
-	display: inline;
+	width: 690px;
+	height: 200px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 5px;
+	display: block;
 	
+	border: 1px solid gray;
 	background: -webkit-linear-gradient(left, #b5babf, #65636b); /* For Safari */
 	background: -o-linear-gradient(right, #b5babf, #65636b); /* For Opera 11.1 to 12.0 */
 	background: -moz-linear-gradient(right, #b5babf, #65636b); /* For Firefox 3.6 to 15 */
 	background: linear-gradient(to right, #b5babf, #65636b); /* Standard syntax */
 }
-#uploadArea .content .mainInfo
+.mainInfo
 {
 	float:left;
 	width: 50%;
 	height: 200px;
 	display: block;
 }
-#uploadArea .mainInfo .images
+.mainInfo .images
 {
-	width: 100%;
+	width: 60%;
 	height: 100px;
+	margin-left: auto;
+	margin-right: auto;
 	display: block;
 }
-#uploadArea .mainInfo .info
+.mainInfo .info
 {
 	color: green;
 	width: 100%;
@@ -101,9 +101,9 @@
 	word-wrap: break-word;
 	display: inline-block;
 }
-#uploadArea .mainInfo .progressBar
+.mainInfo .progressBar
 {
-	width: 95%;
+	width: 60%;
 	height: 20px;
 	margin-left: auto;
 	margin-right: auto;
@@ -111,6 +111,7 @@
 	margin-bottom: 5px;
 	
 	color: black;
+	line-height: normal;
 	font-size: 12px;
 	font-style: normal;
 	font-weight: bold;
@@ -129,20 +130,20 @@
 	border-radius:25px;
 }
 
-#uploadArea .content .userInput
+.userInput
 {
 	float: right;
 	width: 50%;
 	height: 200px;
 	display: block;	
 }
-#uploadArea .userInput .name_input
+.userInput .name_input
 {
 	width: 90%;
 	height: 25px;
 	margin-bottom: 2px;
 }
-#uploadArea .userInput .description_input
+.userInput .description_input
 {
 	width: 90%;
 	height: 150px;

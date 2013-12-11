@@ -23,7 +23,7 @@ function ImageFileContainer(image_file,image_name)
 	var createContent = function()
 	{
 		content = document.createElement('div');
-		content.className = 'content';
+		content.className = 'image_content';
 		
 		mainInfo = document.createElement('div');
 		mainInfo.className = 'mainInfo';
@@ -32,7 +32,7 @@ function ImageFileContainer(image_file,image_name)
 		userInput.className = 'userInput';
 		
 		createImageField('images');
-		createInfoField('info');
+		//createInfoField('info');
 		createProgressBar('progressBar');
 		createSendButton('sendButton');
 		content.appendChild(mainInfo);
@@ -91,8 +91,6 @@ function ImageFileContainer(image_file,image_name)
 	{
 		descriptionInput = document.createElement('textarea');
 		descriptionInput.className = className;
-		descriptionInput.rows = 10;
-		descriptionInput.cols = 30;
 		descriptionInput.maxlength = 300;
 		descriptionInput.placeholder = "Describe your image...";
 		
