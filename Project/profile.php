@@ -108,10 +108,11 @@ $data = mysql_fetch_array($query);
 		<?php echo $data['hobbies']; ?>
 		</div>
 		<div id = 'main_container'>
+			<h2>Recent Images Upload</h2>
 			<?php
-				require 'PHP/UserImageFeed.php';
-				$feed = new UserImageFeed('laerte');
-				echo $feed->displayImages();
+				require 'PHP/ImageFeed.class.php';
+				$feed = new ImageFeed(getUserName());
+				echo $feed->displayUserImages();
 			?>
 		</div>
 	</div>

@@ -32,7 +32,7 @@
 		{
 			return $this->connection;
 		}
-		function retrieveImageData($userID)
+		function retrieveUserImageData($userID)
 		{
 			$query = "select name,description,directory,date from images where user_id = '".$userID."'";
 			$result = mysqli_query($this->connection,$query);
@@ -45,6 +45,23 @@
 				$date = $row['date'];
 				
 				array_push($resultArray,array($name,$description,$directory,$date));
+			}
+			return $resultArray;
+		}
+		function retrieveMostRecentImageData()
+		{
+			$query = "select user_id,name,description,directory,date from images ORDER BY date DESC";
+			$result = mysqli_query($this->connection,$query);
+			$resultArray = array();
+			while($row = mysqli_fetch_array($result))
+			{
+				$username = $row['user_id'];
+				$name = $row['name'];
+				$description = $row['description'];
+				$directory = $row['directory'];
+				$date = $row['date'];
+				
+				array_push($resultArray,array($username,$name,$description,$directory,$date));
 			}
 			return $resultArray;
 		}
@@ -90,7 +107,7 @@
 		public function getUsername($userID)
 		{
 			$field = 'username';
-			$query = "select ".$field." from users where username ='".$userID."'";
+			$query = "select ".$field." from users where user_id ='".$userID."'";
 			$result = mysqli_query($this->connection,$query);
 			$row = mysqli_fetch_array($result);
 			return $row['username'];

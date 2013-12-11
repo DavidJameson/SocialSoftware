@@ -16,6 +16,10 @@ else
 		header("location:index.php");
 	}
 }
+function getUserName()
+{
+	return $_SESSION['usr'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,6 +31,7 @@ else
 <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
 <link rel="stylesheet" href="style/layouts/side-menu.css">
 <link rel="stylesheet" href="style/layouts/marketing.css">
+<link rel="stylesheet" href="style/global_feed.css"/>
 </head>
 <body>
 <div id="layout">
@@ -55,8 +60,15 @@ else
             </ul>
         </div>
     </div>
-		<!-- GLOBAL FEED SECTION STARTS HERE-->
-		<!-- GLOBAL FEED SECTION ENDS HERE-->
+	<!-- GLOBAL FEED SECTION STARTS HERE-->
+	<div id="global_feed">
+		<?php
+			require 'PHP/ImageFeed.class.php';
+			$feed = new ImageFeed(getUserName());
+			echo $feed->displayMostRecent();
+		?>
+	</div>
+	<!-- GLOBAL FEED SECTION ENDS HERE-->
 
 </div>
 <script src="Javascript/ui.js"></script>

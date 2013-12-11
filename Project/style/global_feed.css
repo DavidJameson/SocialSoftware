@@ -1,0 +1,48 @@
+#global_feed
+{
+	width: 500px;
+	height: auto;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+#global_feed #image_results
+{
+	float:left;
+	margin: 5px;
+	display: inline;
+	border: 2px outset gray;
+}
+#image_results .images
+{
+	width: 500px;
+	height: 500px;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+.name
+{
+	width: 300px;
+	height: auto;
+	display: block;
+}
+.description
+{
+	width: 300px;
+	height: auto;
+	display: block;
+}
+.poster
+{
+	width: 300px;
+	height: auto;
+	display: block;
+}
+.date
+{
+	width: 300px;
+	height: auto;
+	font-size: 10px;
+	display: block;
+}
