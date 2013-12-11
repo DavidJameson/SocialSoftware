@@ -1,0 +1,39 @@
+#main_container
+{
+	width: 1000px;
+	height: auto;
+	display: block;
+}
+#image_results
+{
+	width: 300px;
+	height: auto;
+	float:left;
+	margin: 2px;
+	display: inline;
+}
+.images
+{
+	width: 300px;
+	height: 300px;
+	display: block;
+}
+.name
+{
+	width: 300px;
+	height: auto;
+	display: block;
+}
+.description
+{
+	width: 300px;
+	height: auto;
+	display: block;
+}
+.date
+{
+	width: 300px;
+	height: auto;
+	font-size: 10px;
+	display: block;
+}

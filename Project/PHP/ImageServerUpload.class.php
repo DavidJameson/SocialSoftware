@@ -11,6 +11,7 @@
 		private $name;
 		private $description;
 		private $directory;
+		private $domain;
 		private $image_id;
 		
 		function __construct($user,$file,$name,$description)
@@ -30,6 +31,7 @@
 			$this->description = $description;
 			$this->image_id = uniqid();
 			$this->directory = $this->generateDirectory();
+			$this->domain = 'pixelgraphy.net';
 		}
 		public function toString()
 		{
@@ -46,7 +48,7 @@
 			
 			if($this->isImageFile($ext) && $this->noFileError() && $this->noDuplicate())
 			{
-				if(move_uploaded_file($this->file['tmp_name'],$this->directory))
+				if(move_uploaded_file($this->file['tmp_name'],"../".$this->directory))
 				{
 					$this->database
 					->insertImage($this->image_id,$this->name,$this->user,
@@ -113,7 +115,7 @@
 		}
 		public function generateDirectory()
 		{
-			$dir = '..'.$this->database->getUserHome($this->user).'/'.
+			$dir = $this->database->getUserHome($this->user).'/'.
 			$this->image_id.'.'.$this->getFileExtension();
 			return $dir;
 		}

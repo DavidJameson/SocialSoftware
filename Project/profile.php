@@ -34,6 +34,7 @@ $data = mysql_fetch_array($query);
 <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
 <link rel="stylesheet" href="style/layouts/side-menu.css">
 <link rel="stylesheet" href="style/layouts/marketing.css">
+<link rel="stylesheet" href="style/user_image.css"/>
 </head>
 <body>
 <div id="layout">
@@ -105,6 +106,13 @@ $data = mysql_fetch_array($query);
 		<div class="pure-u-1-2">
 		<label><strong>Hobbies/Interests:</strong></label><br/>
 		<?php echo $data['hobbies']; ?>
+		</div>
+		<div id = 'main_container'>
+			<?php
+				require 'PHP/UserImageFeed.php';
+				$feed = new UserImageFeed('laerte');
+				echo $feed->displayImages();
+			?>
 		</div>
 	</div>
 </div>

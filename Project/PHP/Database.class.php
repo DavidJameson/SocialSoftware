@@ -32,6 +32,22 @@
 		{
 			return $this->connection;
 		}
+		function retrieveImageData($userID)
+		{
+			$query = "select name,description,directory,date from images where user_id = '".$userID."'";
+			$result = mysqli_query($this->connection,$query);
+			$resultArray = array();
+			while($row = mysqli_fetch_array($result))
+			{
+				$name = $row['name'];
+				$description = $row['description'];
+				$directory = $row['directory'];
+				$date = $row['date'];
+				
+				array_push($resultArray,array($name,$description,$directory,$date));
+			}
+			return $resultArray;
+		}
 		public function getUsers()
 		{
 			$query = "select * from users";
@@ -70,6 +86,14 @@
 			$result = mysqli_query($this->connection,$query);
 			$row = mysqli_fetch_array($result);
 			return $row['user_id'];
+		}
+		public function getUsername($userID)
+		{
+			$field = 'username';
+			$query = "select ".$field." from users where username ='".$userID."'";
+			$result = mysqli_query($this->connection,$query);
+			$row = mysqli_fetch_array($result);
+			return $row['username'];
 		}
 		public function getTime()
 		{
