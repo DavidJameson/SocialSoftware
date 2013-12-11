@@ -75,42 +75,6 @@ $data = mysql_fetch_array($query);
             </ul>
         </div>
     </div>
-		<!-- USER INFO SECTION-->
-	    <div class="splash">
-        <div class="pure-g-r">
-            <div class="pure-u-1-3">
-                <div class="l-box splash-image">
-                    <img src="http://placehold.it/500x350"
-                         alt="Placeholder image for example.">
-                </div>
-            </div>
-
-            <div class="pure-u-2-3">
-                <div class="l-box splash-text">
-                    <h1 class="splash-head">
-                        <?php echo $_SESSION['usr']; ?>
-                    </h1>
-
-                    <h2 class="splash-subhead">
-                        Full Name: <?php echo $data['fullname']; ?>
-						<br/>
-						Gender: <?php echo $data['gender']; ?>
-						<br/>
-						Nickname: <?php echo $data['nickname']; ?>
-						<br/>
-						Major: <?php echo $data['major']; ?>
-						<br/>
-						Personal e-mail: <?php echo $data['personal_email']; ?>
-						<br/>
-						Hometown/State: <?php echo $data['hometown'] . ', ' . $data['homestate']; ?>
-						<br/>
-						Relationship Status: <?php echo $data['relationship']; ?>
-                    </h2>
-                </div>
-            </div>
-        </div>
-    </div>
-	<!-- END USER INFO SECTION-->
 	<div id="page_content">
 		<div id="uploadArea">
 			<div id="uploadMenu">
