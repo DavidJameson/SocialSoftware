@@ -1,58 +1,41 @@
 $(document).ready(function()
 {
-
-	//var commentBox = new CommentBox();
-	data = new FormData();
-	data.append('image_id',2);
-	
-		
-	//getCommentData('POST','PHP/CommentFeed.get.php',data,commentBox);
-	//setInterval(function(){getCommentData('POST','PHP/CommentFeed.get.php',data,commentBox)},3000);
-	
-	/*var button = commentBox.getAddButton();
-	$(button).bind('click',function(e)
-	{
-		data = new FormData();
-		data.append('user','laerte');
-		data.append('image_id',2);
-		data.append('comment',$(commentBox.getCommentInput()).val());
-		
-		sendData('POST','PHP/CommentFeed.add.php',data);
-	});*/
-	
-	//$('#comments').append(commentBox.getContainer());
 	
 });
 function displayComment(image_id)
 {
-	var commentBox = new CommentBox();
-	var button = commentBox.getAddButton()
-	data = new FormData();
+	var data = new FormData();
 	data.append('image_id',image_id);
+	commentBox = new CommentBox(image_id);
+	document.getElementById(image_id).innerHTML = '';
+	document.getElementById(image_id).appendChild(commentBox.getContainer());
+	var button = commentBox.getAddButton();
 	
-	$(button).bind('click',function(e)
-	{
-				data = new FormData();
-				data.append('image_id',image_id);
-				data.append('comment',$(commentBox.getCommentInput()).val());
-		alert('here');
-				sendData('POST','../PHP/CommentFeed.add.php',data);
+	$(button).bind('click',
+	{box:commentBox,imageID:image_id}
+	,function(e)
+	{	
+		commentData = new FormData();
+		commentData.append('image_id',e.data.imageID);
+		commentData.append('comment',getComment(e.data.box));
+		sendData('POST','PHP/CommentFeed.add.php',commentData);
+		e.preventDefault();
 	});
-	commentBox.setAddButton(button);
+
+		
+	console.log(button);
+	
 	getCommentData('POST','PHP/CommentFeed.get.php',data,commentBox,image_id);
-	//setInterval(function(){getCommentData('POST','PHP/CommentFeed.get.php',data,commentBox)},3000);
-	button_id = image_id+'_button';
-	button = document.getElementById(button_id);
-	/*if(isHidden(commentBox))
+	//setInterval(function(){getCommentData('POST','PHP/CommentFeed.get.php',data,commentBox)},5000);
+}
+function getComment(commentBox)
+{
+	textarea = commentBox.getCommentInput();
+	
+	if(textarea.value.length > 0)
 	{
-		commentBox.style.display = 'block';
-		button.innerHTML = "View Comments";		
+		return textarea.value;
 	}
-	else
-	{
-		commentBox.style.display = 'none';
-		button.innerHTML = "Hide Comments";
-	}*/
 }
 function isHidden(box)
 {

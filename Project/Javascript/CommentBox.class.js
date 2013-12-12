@@ -1,5 +1,6 @@
-function CommentBox()
+function CommentBox(image_id)
 {
+	var image_id = image_id;
 	var container;
 	var commentArea;
 	var commentInput;
@@ -49,8 +50,17 @@ function CommentBox()
 	{
 		addButton = document.createElement('button');
 		addButton.className = className;
+		addButton.id = image_id+"_addbutton";
 		addButton.innerHTML = "Add Comment";
 		container.appendChild(addButton);
+	};
+	this.clearArea = function()
+	{
+		commentArea.innerHTML = "";
+	}
+	this.isCommentDisplayed = function(comment)
+	{
+		
 	};
 	//getters and stter
 	this.getContainer = function()

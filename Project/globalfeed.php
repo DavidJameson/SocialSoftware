@@ -1,6 +1,6 @@
 <?php
-mysql_connect("Pixelgraphy.db.11837707.hostedresource.com", "Pixelgraphy", "P@web2013") or die (mysql_error()); 
-mysql_select_db("Pixelgraphy")or die(mysql_error());
+$con = mysqli_connect("Pixelgraphy.db.11837707.hostedresource.com", "Pixelgraphy", "P@web2013") or die (mysql_error()); 
+mysqli_select_db($con,"Pixelgraphy")or die(mysql_error());
 if(session_id() == "")
 {
 	session_start();
@@ -47,7 +47,7 @@ function getUserName()
 <script>
 	$(document).ready(function()
 	{
-		livefeed('POST','PHP/globalfeed_data.php','global_feed',20000);
+		feed('POST','PHP/globalfeed_data.php','global_feed',20000);
 	});	
 </script>
 <!-- End Javascript Files-->

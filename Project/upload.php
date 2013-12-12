@@ -78,7 +78,7 @@ $data = mysql_fetch_array($query);
 	<div id="page_content">
 		<div id="uploadArea">
 			<div id="uploadMenu">
-				<input type='file' id="fileInput" multiple style="display: none;"/>
+				<input type='file' id="fileInput" multiple style=""/>
 				<button class="menuButton" id="fileSelect">Add Images</button>
 				<button class="menuButton" id="send">Upload All</button>
 			</div>

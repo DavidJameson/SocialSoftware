@@ -1,0 +1,1 @@
+select name,description,directory,date from images where user_id = '52a20ce850e';

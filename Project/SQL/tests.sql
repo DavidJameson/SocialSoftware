@@ -1,0 +1,1 @@
+delete from images where user_id ='52a6276fe18e8';

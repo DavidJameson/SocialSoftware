@@ -1,6 +1,6 @@
 <?php
 	require 'Database.class.php';
-	require 'Credential.class.php';
+	require_once 'Credential.class.php';
 	
 	class ImageFeed
 	{

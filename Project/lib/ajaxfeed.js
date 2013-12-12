@@ -22,6 +22,9 @@ function sendData(method,page,data)
 }
 function getCommentData(method,page,data,commentBox,image_id)
 {
+	//document.getElementById(image_id).innerHTML = $(commentBox.getContainer()).html();
+	
+		
 	if(window.XMLHttpRequest)
 	{
 		xmlhttp = new XMLHttpRequest();		
@@ -35,22 +38,15 @@ function getCommentData(method,page,data,commentBox,image_id)
 	{
 		if(xmlhttp.readyState == 4 && xmlhttp.status == 200)
 		{
-			alert(xmlhttp.responseText);
+			//alert(xmlhttp.responseText);
 			//console.log(JSON.parse(xmlhttp.responseText));
 			var array = JSON.parse(xmlhttp.responseText);
+			commentBox.clearArea();
 			for(i=0; i< array.length;i++ )
 			{
-				if(!document.getElementById(array[i][0]))
-				{
-					commentBox.addComment(array[i][0],array[i][1],array[i][2]);
-				}
-				else
-				{
-					alert('already exists '+array[i][0]);
-				}
+				
+				commentBox.addComment(array[i][0],array[i][1],array[i][2]);
 			}
-			
-			document.getElementById(image_id).innerHTML = $(commentBox.getContainer()).html();
 		}			
 	}
 	xmlhttp.open(method,page,true);
@@ -80,9 +76,9 @@ function feed(method,page,id)
 function livefeed(method,page,id,timeout)
 {
 	feed(method,page,id);
-	//setInterval(function()
-		//		{
-		//			feed(method,page,id);
-		//		},
-		//		timeout);
+	setInterval(function()
+				{
+					feed(method,page,id);
+				},
+				timeout);
 }

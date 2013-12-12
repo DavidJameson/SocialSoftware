@@ -152,14 +152,15 @@ function ImageFileUploader(fileInput,fileSelect,displayBox,files)
 	};
 	var addEvents = function()
 	{
-		fileSelect.addEventListener("click", function (e) 
+		$(fileSelect).bind("click", function (e) 
 		{
-		  if (fileInput) 
+		  if ($(fileInput).length) 
 		  {
-		    fileInput.click();
+		  	alert('here');
+		    $(fileInput).click();
 		  }
 		  e.preventDefault(); // prevent navigation to "#"
-		}, false);
+		});
 		
 		fileInput.addEventListener("change",function (e)
 		{
