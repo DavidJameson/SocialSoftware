@@ -8,6 +8,8 @@
 }
 #global_feed #image_results
 {
+	width: 470px;
+	height: 500px;
 	float:left;
 	margin: 5px;
 	display: inline;

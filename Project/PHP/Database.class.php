@@ -50,7 +50,7 @@
 		}
 		function retrieveMostRecentImageData()
 		{
-			$query = "select user_id,name,description,directory,date from images ORDER BY date DESC";
+			$query = "select user_id,name,description,directory,date from images ORDER BY date_unix DESC";
 			$result = mysqli_query($this->connection,$query);
 			$resultArray = array();
 			while($row = mysqli_fetch_array($result))
@@ -116,6 +116,11 @@
 		{
 			return date('l jS \of F Y h:i:s A');
 		}
+		public function getTimeUnix()
+		{
+			$date=date_create();
+			return date_timestamp_get($date);
+		}
 		public function insertImage($image_id,$name,$username,
 		$directory,$description,$privacy)
 		{
@@ -130,7 +135,8 @@
 					'description',
 					'privacy',
 					'directory',
-					'date'
+					'date',
+					'date_unix'
 				),
 				"values"=>array
 				(
@@ -142,8 +148,8 @@
 						"'".$description."'",
 						"'".$privacy."'",
 						"'".$directory."'",
-						"'".$this->getTime()."'"
-						
+						"'".$this->getTime()."'",
+						"'".$this->getTimeUnix()."'"
 					)
 				)
 			);

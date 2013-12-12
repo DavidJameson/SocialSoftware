@@ -27,11 +27,22 @@ function getUserName()
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="A layout example with a side menu that hides on mobile, just like the Pure website.">
-    <title>Global Feed</title>
+<title>Global Feed</title>
 <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
 <link rel="stylesheet" href="style/layouts/side-menu.css">
 <link rel="stylesheet" href="style/layouts/marketing.css">
 <link rel="stylesheet" href="style/global_feed.css"/>
+
+<!--Start Javascript Files-->
+<script src="lib/ajaxfeed.js"></script>
+<script src="lib/jquery-1.9.1.js"></script>
+<script>
+	$(document).ready(function()
+	{
+		livefeed('POST','PHP/globalfeed_data.php','global_feed',20000);
+	});	
+</script>
+<!-- End Javascript Files-->
 </head>
 <body>
 <div id="layout">
@@ -62,11 +73,7 @@ function getUserName()
     </div>
 	<!-- GLOBAL FEED SECTION STARTS HERE-->
 	<div id="global_feed">
-		<?php
-			require 'PHP/ImageFeed.class.php';
-			$feed = new ImageFeed(getUserName());
-			echo $feed->displayMostRecent();
-		?>
+		
 	</div>
 	<!-- GLOBAL FEED SECTION ENDS HERE-->
 
