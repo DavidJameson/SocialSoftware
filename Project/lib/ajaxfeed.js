@@ -14,7 +14,7 @@ function sendData(method,page,data)
 	{
 		if(xmlhttp.readyState == 4 && xmlhttp.status == 200)
 		{
-			alert(xmlhttp.responseText);
+			//alert(xmlhttp.responseText);
 		}			
 	}
 	xmlhttp.open(method,page,true);
