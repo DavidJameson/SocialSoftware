@@ -1,0 +1,8 @@
+
+function addComment(image_id)
+{
+	
+	commentBox = document.getElementById(image_id);
+	alert('here');
+	commentBox.display = 'hidden';
+}

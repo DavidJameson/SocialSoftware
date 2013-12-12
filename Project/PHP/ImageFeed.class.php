@@ -80,22 +80,28 @@
 		function displayMostRecent()
 		{
 			$tag ='';
+			$tag.= "<div id='image_results'>\n";
 			$this->generateMostRecentValueArray();
 			foreach($this->resultArray['values'] as $value)
 			{
-				$userID = $value[0];
-				$name = $value[1];
-				$description = $value[2];
-				$directory = $value[3];
-				$date = $value[4];
-				$tag.= "<div id='image_results'>\n";
+				$imageId = $value[0];
+				$userID = $value[1];
+				$name = $value[2];
+				$description = $value[3];
+				$directory = $value[4];
+				$date = $value[5];
+				$tag.= "<div class='post_container'>";
 				$tag.= "<img class='images'src='".$directory."'/>";
 				$tag.= "<span class='name'>".$name."</span>";
 				$tag.= "<span class='description'>".$description."</span>";
 				$tag.= "<span class='poster'>Posted by ".$this->database->getUsername($userID)."</span>";
 				$tag.= "<span class='date'>".$date."</span>";
+				$tag.= "<span id='".$imageId."'class=comments>comments here</span>";
+$tag.= "<button id='".$imageId."_button'onclick=displayComment('".$imageId."')>View Comments</button>";
 				$tag.= "</div>\n";
+								
 			}
+			$tag.= "</div>\n";
 			return $tag;
 		}
 	}

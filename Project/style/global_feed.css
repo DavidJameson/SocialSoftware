@@ -1,50 +1,66 @@
 #global_feed
 {
+	
+}
+#image_results
+{
 	width: 500px;
 	height: auto;
+	margin-top: 5px;
+	margin-bottom: 5px;
 	margin-left: auto;
 	margin-right: auto;
 	display: block;
-}
-#global_feed #image_results
-{
-	width: 470px;
-	height: 500px;
-	float:left;
-	margin: 5px;
-	display: inline;
 	border: 2px outset gray;
 }
-#image_results .images
+.post_container
 {
-	width: 500px;
-	height: 500px;
+	width: 490px;
+	height: auto;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+	margin-bottom: 8px;
+	display: block;
+	border-bottom: 2px inset gray;
+}
+.post_container .images
+{
+	width: 95%;
+	height: auto;
 	margin-left: auto;
 	margin-right: auto;
 	display: block;
 }
-.name
+.post_container .name
 {
-	width: 300px;
+	width: 95%;
 	height: auto;
 	display: block;
 }
-.description
+.post_container .description
 {
-	width: 300px;
+	width: 95%;
 	height: auto;
 	display: block;
 }
-.poster
+.post_container .poster
 {
-	width: 300px;
+	width: 95%;
 	height: auto;
 	display: block;
 }
-.date
+.post_container .date
 {
-	width: 300px;
+	width: 95%;
 	height: auto;
-	font-size: 10px;
+	font-size: 12px;
 	display: block;
+}
+.post_container .comments
+{
+	width: 95%;
+	height: auto;
+	font-size: 15px;
+	display:block;
 }

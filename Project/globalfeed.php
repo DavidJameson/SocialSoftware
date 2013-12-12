@@ -32,10 +32,18 @@ function getUserName()
 <link rel="stylesheet" href="style/layouts/side-menu.css">
 <link rel="stylesheet" href="style/layouts/marketing.css">
 <link rel="stylesheet" href="style/global_feed.css"/>
+<link rel="stylesheet" href="style/comments.css"/>
 
 <!--Start Javascript Files-->
 <script src="lib/ajaxfeed.js"></script>
 <script src="lib/jquery-1.9.1.js"></script>
+<script src="Javascript/comment_handler.js"></script>
+<script src="lib/jquery-1.9.1.js"></script>
+<script src="lib/ajaxfeed.js"></script>
+<script src=Javascript/CommentBox.class.js></script>
+<script src=Javascript/comment_handler.js></script>
+		
+		
 <script>
 	$(document).ready(function()
 	{

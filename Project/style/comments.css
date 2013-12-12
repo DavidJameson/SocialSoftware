@@ -1,0 +1,60 @@
+
+.comments_container
+{
+	width: 400px;
+	height: auto;
+	border: 1px solid gray;
+}
+.commentArea
+{
+	width: 400px;
+	height: auto;
+	display: block;
+}
+.commentArea .comment
+{
+	width: 90%;
+	height: auto;
+	margin-top: 1%;
+	margin-bottom: 1%;
+	margin-left: auto;
+	margin-right: auto;
+	height: auto;
+	border: 1px outset gray;
+	display: block;
+}
+.comment .nameDisplay
+{
+	width: 100%;
+	height: auto;
+	margin-left: 1%;
+	display: block;
+}
+.comment .commentDisplay
+{
+	width: 100%;
+	height: auto;
+	margin-left: 4%;
+	display: block;
+	
+	color: green;
+}
+.commentInput
+{
+	width: 396px;
+	height: 100px;
+	margin-left: 2px;
+	margin-right: 2px;
+	display: block;
+}
+.addButton
+{
+	width: 100px;
+	height: 25px;
+	
+	margin-bottom: 5px;
+	margin-top: 5px;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}

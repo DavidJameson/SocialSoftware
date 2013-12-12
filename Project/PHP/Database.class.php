@@ -48,20 +48,40 @@
 			}
 			return $resultArray;
 		}
-		function retrieveMostRecentImageData()
+		function retrieveComments($image_id)
 		{
-			$query = "select user_id,name,description,directory,date from images ORDER BY date_unix DESC";
+			
+			$query = "select comment_id,user_id,comment,date from comments";
+			$query .= " where image_id='".$image_id."'";
+			$query .= " ORDER BY date_unix DESC";
 			$result = mysqli_query($this->connection,$query);
 			$resultArray = array();
 			while($row = mysqli_fetch_array($result))
 			{
+				$comment_id = $row['comment_id'];
+				$username = $this->getUsername($row['user_id']);
+				$comment = $row['comment'];
+				$date = $row['date'];
+								
+				array_push($resultArray,array($comment_id,$username,$comment,$date));
+			}
+			return $resultArray;
+		}
+		function retrieveMostRecentImageData()
+		{
+			$query = "select image_id,user_id,name,description,directory,date from images ORDER BY date_unix DESC";
+			$result = mysqli_query($this->connection,$query);
+			$resultArray = array();
+			while($row = mysqli_fetch_array($result))
+			{
+				$Image_id = $row['image_id'];
 				$username = $row['user_id'];
 				$name = $row['name'];
 				$description = $row['description'];
 				$directory = $row['directory'];
 				$date = $row['date'];
 				
-				array_push($resultArray,array($username,$name,$description,$directory,$date));
+				array_push($resultArray,array($Image_id,$username,$name,$description,$directory,$date));
 			}
 			return $resultArray;
 		}
@@ -148,6 +168,41 @@
 						"'".$description."'",
 						"'".$privacy."'",
 						"'".$directory."'",
+						"'".$this->getTime()."'",
+						"'".$this->getTimeUnix()."'"
+					)
+				)
+			);
+			
+			$query = $this->createInsertSQL($values,$table);
+
+			if(!mysqli_query($this->getConnection(),$query))
+			{
+				echo mysqli_error($this->getConnection());
+			}
+		}
+		public function insertComment($comment_id,$image_id,$user_id,$comment)
+		{
+			$table = 'comments';
+			$values = array
+			(
+				"columns"=>array
+				(
+					'comment_id',
+					'image_id',
+					'user_id',
+					'comment',
+					'date',
+					'date_unix'
+				),
+				"values"=>array
+				(
+					array
+					(
+						"'".$comment_id."'",
+						"'".$image_id."'",
+						"'".$user_id."'",
+						"'".$comment."'",
 						"'".$this->getTime()."'",
 						"'".$this->getTimeUnix()."'"
 					)
