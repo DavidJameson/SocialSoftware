@@ -97,7 +97,9 @@
 				$tag.= "<span class='poster'>Posted by ".$this->database->getUsername($userID)."</span>";
 				$tag.= "<span class='date'>".$date."</span>";
 				$tag.= "<span id='".$imageId."'class=comments>comments here</span>";
-$tag.= "<button id='".$imageId."_button'onclick=displayComment('".$imageId."')>View Comments</button>";
+				$tag.= "<button class='viewcomments' id='".$imageId
+						."_button'onclick=displayComment('".$imageId
+						."')>View Comments</button>";
 				$tag.= "</div>\n";
 								
 			}

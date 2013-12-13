@@ -1,6 +1,8 @@
 <?php
-$con = mysqli_connect("Pixelgraphy.db.11837707.hostedresource.com", "Pixelgraphy", "P@web2013") or die (mysql_error()); 
-mysqli_select_db($con,"Pixelgraphy")or die(mysql_error());
+require_once "PHP/Credential.class.php";
+$credential = new Credential();
+//$con = mysqli_connect($credential->getHost(),$credential->getUsername(), $credential->getPassword()) or die (mysql_error()); 
+//mysqli_select_db($con,"Pixelgraphy")or die(mysql_error());
 if(session_id() == "")
 {
 	session_start();

@@ -3,12 +3,18 @@
 {
 	width: 400px;
 	height: auto;
+	
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
 	border: 1px solid gray;
 }
 .commentArea
 {
 	width: 400px;
 	height: auto;
+	margin-left: auto;
+	margin-right: auto;
 	display: block;
 }
 .commentArea .comment
@@ -41,10 +47,10 @@
 }
 .commentInput
 {
-	width: 396px;
+	width: 390px;
 	height: 100px;
-	margin-left: 2px;
-	margin-right: 2px;
+	margin-left: auto;
+	margin-right: auto;
 	display: block;
 }
 .addButton

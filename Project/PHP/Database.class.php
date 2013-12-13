@@ -53,7 +53,7 @@
 			
 			$query = "select comment_id,user_id,comment,date from comments";
 			$query .= " where image_id='".$image_id."'";
-			$query .= " ORDER BY date_unix DESC";
+			$query .= " ORDER BY date_unix ASC";
 			$result = mysqli_query($this->connection,$query);
 			$resultArray = array();
 			while($row = mysqli_fetch_array($result))
