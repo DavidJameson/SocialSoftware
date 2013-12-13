@@ -59,6 +59,7 @@ function getCommentData(method,page,data,commentBox,image_id)
 					
 					commentBox.addComment(array[i][0],array[i][1],array[i][2]);
 				}
+				commentBox.getCommentArea().style.textAlign = 'left';
 			}
 			else
 			{

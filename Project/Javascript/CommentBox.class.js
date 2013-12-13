@@ -38,6 +38,7 @@ function CommentBox(image_id)
 	{
 		commentArea = document.createElement('span');
 		commentArea.className = className;
+		commentArea.placeholder = 'type in your comment, and click Add Comment.';
 		container.appendChild(commentArea);
 	};
 	var createCommentInput = function(className)

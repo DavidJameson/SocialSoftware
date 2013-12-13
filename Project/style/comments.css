@@ -13,6 +13,7 @@
 	height: auto;
 	margin-left: auto;
 	margin-right: auto;
+	resize: none;
 	display: block;
 }
 .commentArea .comment
@@ -49,6 +50,7 @@
 	height: 100px;
 	margin-left: auto;
 	margin-right: auto;
+	resize: none;
 	display: block;
 }
 .addButton
