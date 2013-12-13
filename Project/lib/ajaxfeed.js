@@ -62,7 +62,7 @@ function getCommentData(method,page,data,commentBox,image_id)
 			}
 			else
 			{
-				commentBox.getCommentArea().innerHTML = "There's no comments yet, be the first one to comment.";
+				commentBox.getCommentArea().innerHTML = "There's no comments yet, be the first one.";
 			}
 		}			
 	}
