@@ -28,6 +28,7 @@ function CommentBox(image_id)
 	{
 		container = document.createElement('div');
 		container.className = className;
+		container.id = image_id+'_commentContainer';
 		createCommentArea('commentArea');
 		createCommentInput('commentInput');
 		createAddButton('addButton');
@@ -57,12 +58,16 @@ function CommentBox(image_id)
 	this.clearArea = function()
 	{
 		commentArea.innerHTML = "";
-	}
+	};
 	this.isCommentDisplayed = function(comment)
 	{
 		
 	};
 	//getters and stter
+	this.getImageId = function()
+	{
+		return image_id;
+	};
 	this.getContainer = function()
 	{
 		return container;

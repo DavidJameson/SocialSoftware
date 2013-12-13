@@ -96,10 +96,10 @@
 				$tag.= "<span class='description'>".$description."</span>";
 				$tag.= "<span class='poster'>Posted by ".$this->database->getUsername($userID)."</span>";
 				$tag.= "<span class='date'>".$date."</span>";
-				$tag.= "<span id='".$imageId."'class=comments>comments here</span>";
+				$tag.= "<span id='".$imageId."'class=comments></span>";
 				$tag.= "<button class='viewcomments' id='".$imageId
 						."_button'onclick=displayComment('".$imageId
-						."')>View Comments</button>";
+						."')>Show Comments</button>";
 				$tag.= "</div>\n";
 								
 			}
