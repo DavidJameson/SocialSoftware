@@ -78,7 +78,7 @@ $data = mysql_fetch_array($query);
             <div class="pure-u-2-3">
                 <div class="l-box splash-text">
                     <h1 class="splash-head">
-                        <?php echo $_SESSION['usr']; ?>
+                        <?php echo ucfirst($_SESSION['usr']); ?>
                     </h1>
 
                     <h2 class="splash-subhead">

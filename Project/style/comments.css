@@ -55,8 +55,9 @@
 }
 .addButton
 {
-	width: 150px;
+	width: 120px;
 	height: 25px;
+	font-size: 12px;
 	margin-bottom: 5px;
 	margin-top: 5px;
 	margin-left: auto;

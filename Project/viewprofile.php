@@ -84,7 +84,7 @@ $dataUser = mysql_fetch_array($queryUser);
             <div class="pure-u-2-3">
                 <div class="l-box splash-text">
                     <h1 class="splash-head">
-                        <?php echo $dataUser['username']; ?>
+                        <?php echo ucfirst($dataUser['username']); ?>
                     </h1>
 
                     <h2 class="splash-subhead">

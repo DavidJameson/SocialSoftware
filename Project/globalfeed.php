@@ -45,7 +45,8 @@ function getUserName()
 <script>
 	$(document).ready(function()
 	{
-		feed('POST','PHP/globalfeed_data.php','global_feed',20000);
+		//livefeed('POST','PHP/globalfeed_data.php','global_feed',20000);
+		feed('POST','PHP/globalfeed_data.php','global_feed');
 	});	
 </script>
 <!-- End Javascript Files-->

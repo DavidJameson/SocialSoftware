@@ -59,9 +59,9 @@ function ImageFileContainer(image_file,image_name)
 		}
 		else
 		{
-			imageField = document.createElement('span');
+			imageField = document.createElement('img');
 			imageField.className = className;
-			imageField.innerHTML = 'Safari Does Not Support Preview';
+			imageField.src = "image/default-safari.png";
 		}
 		
 		mainInfo.appendChild(imageField);

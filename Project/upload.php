@@ -80,6 +80,7 @@ function getUserName()
 			<span id="dropbox">
 				<p>Drop Images Here</p>
 				<p>Accepted Image Format: JPG,JPEG, and PNG</p>
+				<p>Note: If you're using Safari browser, you won't be able to preview your image.</p>
 			</span>
 		    <div id="fileList">
 				Files not selected.
