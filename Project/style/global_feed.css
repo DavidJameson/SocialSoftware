@@ -27,6 +27,10 @@
 	text-decoration: none;
 	color: inherit;
 }
+.post_container a:hover
+{
+	font-weight: bolder;
+}
 .post_container button
 {
 	font-size: 12px;

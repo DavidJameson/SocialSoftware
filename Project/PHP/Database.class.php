@@ -43,6 +43,7 @@
 		function retrieveUserImageData($userID)
 		{
 			$query = "select image_id,name,description,directory,date from images where user_id = '".$userID."'";
+			$query .= " ORDER BY date_unix DESC";
 			$result = mysqli_query($this->connection,$query);
 			$resultArray = array();
 			while($row = mysqli_fetch_array($result))
