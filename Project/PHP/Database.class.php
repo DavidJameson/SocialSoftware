@@ -42,17 +42,18 @@
 		}
 		function retrieveUserImageData($userID)
 		{
-			$query = "select name,description,directory,date from images where user_id = '".$userID."'";
+			$query = "select image_id,name,description,directory,date from images where user_id = '".$userID."'";
 			$result = mysqli_query($this->connection,$query);
 			$resultArray = array();
 			while($row = mysqli_fetch_array($result))
 			{
+				$image_id = $row['image_id'];
 				$name = $row['name'];
 				$description = $row['description'];
 				$directory = $row['directory'];
 				$date = $row['date'];
 				
-				array_push($resultArray,array($name,$description,$directory,$date));
+				array_push($resultArray,array($image_id,$name,$description,$directory,$date));
 			}
 			return $resultArray;
 		}
@@ -70,8 +71,9 @@
 				$username = $this->getUsername($row['user_id']);
 				$comment = $row['comment'];
 				$date = $row['date'];
+				$user_id = $row['user_id'];
 								
-				array_push($resultArray,array($comment_id,$username,$comment,$date));
+				array_push($resultArray,array($comment_id,$username,$comment,$date,$user_id));
 			}
 			return $resultArray;
 		}
@@ -188,6 +190,37 @@
 			{
 				echo mysqli_error($this->getConnection());
 			}
+		}
+		public function removeImage($image_id)
+		{
+			$query = "SELECT directory FROM images WHERE image_id='".$image_id."'";
+			$query1 = "DELETE FROM images WHERE image_id='".$image_id."'";
+			$query2 = "DELETE FROM comments WHERE image_id='".$image_id."'";
+			
+			if($result = mysqli_query($this->getConnection(),$query))
+			{
+				$row = mysqli_fetch_array($result);
+				if(unlink("../".$row['directory']))
+				{
+					if(!mysqli_query($this->getConnection(),$query1))
+					{
+						echo mysqli_error($this->getConnection());
+					}
+					if(!mysqli_query($this->getConnection(),$query2))
+					{
+						echo mysqli_error($this->getConnection());
+					}
+				}
+				else
+				{
+					echo "file was not deleted sucessfully";	
+				}
+			}
+			else
+			{
+				echo mysqli_error($this->getConnection());
+			}
+			
 		}
 		public function insertComment($comment_id,$image_id,$user_id,$comment)
 		{

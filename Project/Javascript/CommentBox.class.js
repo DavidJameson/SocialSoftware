@@ -6,20 +6,23 @@ function CommentBox(image_id)
 	var commentInput;
 	var addButton;
 	
-	this.addComment = function(comment_id,username,comment)
+	this.addComment = function(comment_id,username,comment,user_id)
 	{
 		var commentHolder = document.createElement('div');
 		commentHolder.id = comment_id;
 		commentHolder.className = 'comment';
+		var reference = document.createElement('a');
+		reference.href = 'http://pixelgraphy.net/viewprofile.php?id='+user_id;
 		var nameDisplay = document.createElement('span');
 		nameDisplay.className = 'nameDisplay';
 		nameDisplay.innerHTML = username;
+		reference.appendChild(nameDisplay);
 		
 		var commentDisplay = document.createElement('span');
 		commentDisplay.className = 'commentDisplay';
 		commentDisplay.innerHTML = comment;
 		
-		commentHolder.appendChild(nameDisplay);
+		commentHolder.appendChild(reference);
 		commentHolder.appendChild(commentDisplay);
 		
 		commentArea.appendChild(commentHolder);

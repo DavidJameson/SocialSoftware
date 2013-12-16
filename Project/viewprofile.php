@@ -117,11 +117,11 @@ $dataUser = mysql_fetch_array($queryUser);
 		<?php echo $data['hobbies']; ?>
 		</div>
 		<div id = 'main_container'>
-			<h2>Recent Images Upload</h2>
+			<h2>Recent Images Uploaded</h2>
 			<?php
 				require 'PHP/ImageFeed.class.php';
 				$feed = new ImageFeed($dataUser['username']);
-				echo $feed->displayUserImages();
+				echo $feed->displayPublicUserImages();
 			?>
 		</div>
 	</div>

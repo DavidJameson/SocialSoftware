@@ -1,1 +1,3 @@
-delete from images where user_id ='52a6276fe18e8';
+
+
+UPDATE uprofile SET profile_picture = 'some pic url' WHERE user_id = '52a89642c025c';

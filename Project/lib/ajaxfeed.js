@@ -1,3 +1,32 @@
+function sendImageId(method,page,image_id)
+{
+	var data = new FormData();
+	var imageID = image_id;
+	
+	data.append('image_id',imageID);
+	
+	if(window.XMLHttpRequest)
+	{
+		xmlhttp = new XMLHttpRequest();		
+	}
+	else
+	{
+		xmlhttp = new ActiveXObject('Microsoft.XMLHTTP');
+	}
+
+	xmlhttp.onreadystatechange = function ()
+	{
+		if(xmlhttp.readyState == 4 && xmlhttp.status == 200)
+		{
+			//alert(xmlhttp.responseText);
+			document.getElementById(image_id).remove();
+			//alert('Image has been deleted');
+			//console.log(data);
+		}			
+	}
+	xmlhttp.open(method,page,true);
+	xmlhttp.send(data);
+}
 function sendData(method,page,commentBox,image_id)
 {
 	var data = new FormData();
@@ -57,7 +86,7 @@ function getCommentData(method,page,data,commentBox,image_id)
 				for(i=0; i< array.length;i++ )
 				{
 					
-					commentBox.addComment(array[i][0],array[i][1],array[i][2]);
+					commentBox.addComment(array[i][0],array[i][1],array[i][2],array[i][4]);
 				}
 				commentBox.getCommentArea().style.textAlign = 'left';
 			}

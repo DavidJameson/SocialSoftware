@@ -35,6 +35,9 @@ $data = mysql_fetch_array($query);
 <link rel="stylesheet" href="style/layouts/side-menu.css">
 <link rel="stylesheet" href="style/layouts/marketing.css">
 <link rel="stylesheet" href="style/user_image.css"/>
+
+<script src="Javascript/removeImage.js"></script>
+<script src="lib/ajaxfeed.js"></script>
 </head>
 <body>
 <div id="layout">
@@ -108,7 +111,7 @@ $data = mysql_fetch_array($query);
 		<?php echo $data['hobbies']; ?>
 		</div>
 		<div id = 'main_container'>
-			<h2>Recent Images Upload</h2>
+			<h2>Images Upload By Yourself</h2>
 			<?php
 				require 'PHP/ImageFeed.class.php';
 				$feed = new ImageFeed(getUserName());

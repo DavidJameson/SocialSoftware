@@ -33,6 +33,7 @@
 			(
 				"columns"=>array
 				(
+					'image_id',
 					'name',
 					'description',
 					'directory',
@@ -64,11 +65,33 @@
 			$this->generateUserValueArray();
 			foreach($this->resultArray['values'] as $value)
 			{
-				$name = $value[0];
-				$description = $value[1];
-				$directory = $value[2];
-				$date = $value[3];
-				$tag.= "<div id='image_results'>\n";
+				$id = $value[0];
+				$name = $value[1];
+				$description = $value[2];
+				$directory = $value[3];
+				$date = $value[4];
+				$tag.= "<div id ='".$id."'class='image_results'>\n";
+				$tag.= "<img class='images'src='".$directory."'/>";
+				$tag.= "<span class='name'>".$name."</span>";
+				$tag.= "<span class='description'>".$description."</span>";
+				$tag.= "<span class='date'>".$date."</span>";
+				$tag.= "<button class='remove_button' onclick=removeImage('".$id."');> Remove Image</button>";
+				$tag.= "</div>\n";
+			}
+			return $tag;
+		}
+		function displayPublicUserImages()
+		{
+			$tag ='';
+			$this->generateUserValueArray();
+			foreach($this->resultArray['values'] as $value)
+			{
+				$id = $value[0];
+				$name = $value[1];
+				$description = $value[2];
+				$directory = $value[3];
+				$date = $value[4];
+				$tag.= "<div id ='".$id."'class='image_results'>\n";
 				$tag.= "<img class='images'src='".$directory."'/>";
 				$tag.= "<span class='name'>".$name."</span>";
 				$tag.= "<span class='description'>".$description."</span>";
@@ -90,11 +113,13 @@
 				$description = $value[3];
 				$directory = $value[4];
 				$date = $value[5];
+				$profileUrl = "http://pixelgraphy.net/viewprofile.php?id=".$userID;
 				$tag.= "<div class='post_container'>";
 				$tag.= "<img class='images'src='".$directory."'/>";
 				$tag.= "<span class='name'>".$name."</span>";
 				$tag.= "<span class='description'>".$description."</span>";
-				$tag.= "<span class='poster'>Posted by ".$this->database->getUsername($userID)."</span>";
+				$tag.= "<span class='poster'>Posted by "."<a href='".$profileUrl."'>"
+				.$this->database->getUsername($userID)."</a></span>";
 				$tag.= "<span class='date'>".$date."</span>";
 				$tag.= "<span id='".$imageId."'class=comments></span>";
 				$tag.= "<button class='viewcomments' id='".$imageId
