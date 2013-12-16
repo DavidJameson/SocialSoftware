@@ -43,13 +43,27 @@ function ImageFileContainer(image_file,image_name)
 	};
 	var createImageField = function(className)
 	{
-		imageField = document.createElement('img');
-		imageField.className = className;
-		imageField.src = window.URL.createObjectURL(file);
-		imageField.onload = function(e) 
+		
+		if(window.FileReader)
 		{
-		      window.URL.revokeObjectURL(this.src);
+			imageField = document.createElement('img');
+			imageField.className = className;
+			var reader = new FileReader();
+   			reader.onload = (function(aImg) 
+			{ return function(e) 
+				{ 
+					aImg.src = e.target.result; 
+				}; 
+			})(imageField);
+   			reader.readAsDataURL(file);
 		}
+		else
+		{
+			imageField = document.createElement('span');
+			imageField.className = className;
+			imageField.innerHTML = 'Safari Does Not Support Preview';
+		}
+		
 		mainInfo.appendChild(imageField);
 	};
 	var createInfoField = function(className)
@@ -195,5 +209,9 @@ function ImageFileContainer(image_file,image_name)
 	{
 		return sendButton;
 	}
+	this.getUserInput = function()
+	{
+		return userInput;
+	};
 	createContent();
 }

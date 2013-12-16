@@ -40,6 +40,16 @@ textarea
     resize: none; 
 }
 </style>
+
+<!-- START Uploader files library -->
+		<!--CSS files-->
+		<link rel="stylesheet" href='style/settings.css'/>
+		<!--Javascript libs-->
+		<script src="lib/jquery-1.9.1.js"></script>
+		<script src="Javascript/ImageFileContainer.class.js"></script>
+		<script src="Javascript/ImageFileUploader.class.js"></script>
+		<script src="Javascript/profile_picture.js"></script>
+<!-- END Uploader files library -->
 </head>
 <body>
 <div id="layout">
@@ -368,16 +378,16 @@ textarea
             </fieldset>
         </form>
         <br/>
-        <form class="pure-form" action="update_profile_image.php" style="margin-left:10%;margin-right:10%;" method="POST">
-            <legend>Update your display Image.</legend>
-            <fieldset>
-                <div class="pure-u-1-2">
-                    <label for="user_image">Your profile image</label>
-                    <input type="file" name="user_image" accept="image/*">
-                </div>
-                <button type="submit" class="pure-button pure-button-primary">Update Image</button>
-            </fieldset>
-        </form>
+        
+		<div id = 'profile_pic'>
+			<h2>Update Your Profile Picture</h2>
+			<input id ='fileInput'type='file' id='fileInput'>
+			<div id='upload_menu'>
+				<button class='upload_button' id='selectPic'>Select Profile Picture</button>
+				<button class='upload_button' id='updatePic'>Update Picture</button>
+			</div>
+			<span id='picPreview'></span>
+		</div>
         <!-- End settings stuff here -->
 </div>
 <script src="Javascript/ui.js"></script>

@@ -1,10 +1,12 @@
 //This class is meant to be used for previewing, and
 //uploading multiples files
-function ImageFileUploader(fileInput,fileSelect,displayBox,files)
+function ImageFileUploader(fileInput,fileSelect,displayBox,limit,isProfile)
 {
 	var fileInput = fileInput;
 	var fileSelect = fileSelect;
 	var displayBox = displayBox;
+	var limit = limit;
+	var isProfile = isProfile;
 	var dropbox;
 	var filesArray = new Array();
 	var allowedTypes = ["image/jpg","image/jpeg","image/png"];
@@ -13,19 +15,26 @@ function ImageFileUploader(fileInput,fileSelect,displayBox,files)
 	//These functions are private, therefore can only be called from inside.
 	var addFilesToArray = function(files)
 	{
-		arraySize = files.length;
-		for(var i = 0; i < arraySize; i++)
+		
+		for(var i = 0; i < files.length; i++)
 		{
 			var isImage = isImageFile(files[i]);
-			if(isImage)
+			if(isImage && i < limit)
 			{
+				
 				name = files[i].name.replace(/\..+$/, ''); //removes file's type from name
 				fileContainer = new ImageFileContainer(files[i],name);
+				if(isProfile)
+				{
+					clearInput(fileContainer);
+					fileContainer.getSendButton().style.display = 'none';
+					fileContainer.getUserInput().style.display = 'none';
+				}
 				sendButton = fileContainer.getSendButton();
+				
 				$(sendButton).bind('click',
 				{container: fileContainer},function(e)
 				{
-					
 					sendFile(e.data.container);
 					e.preventDefault();
 				});
@@ -33,6 +42,7 @@ function ImageFileUploader(fileInput,fileSelect,displayBox,files)
 				filesArray.push(fileContainer);
 			}			
 		}
+		
 	};
 	var isImageFile = function(file)
 	{
@@ -53,6 +63,7 @@ function ImageFileUploader(fileInput,fileSelect,displayBox,files)
 		processCompleted = false;
 		if(isFileSelected()) 
 		{
+			
 			clearDisplayBox();
 			displaySelectedFiles();
 		}
@@ -88,9 +99,15 @@ function ImageFileUploader(fileInput,fileSelect,displayBox,files)
 	{
 		displayBox.innerHTML = '';
 	};
+	var clearInput = function(fileContainer)
+	{
+		fileContainer.getNameInput().style.display = 'none';
+		fileContainer.getDescriptionInput().style.display = 'none';	
+	};
 	var sendFile = function(fileContainer) 
-	{		
-		if(!fileContainer.isNameInputEmpty() && !fileContainer.isDescriptionInputEmpty() && !fileContainer.isUploaded())
+	{
+		if((!fileContainer.isNameInputEmpty() && !fileContainer.isDescriptionInputEmpty() && !fileContainer.isUploaded())
+		|| isProfile)
 		{		
 			var uri = "PHP/ImageServerUploader.php";
             var xhr = new XMLHttpRequest();
@@ -134,6 +151,7 @@ function ImageFileUploader(fileInput,fileSelect,displayBox,files)
 	
             fileData.append('myFile', fileContainer.getFile());
 			fileData.append('nameInput',fileContainer.getNameInput().value);
+			fileData.append('isProfile',isProfile);
 			fileData.append('descriptionInput',fileContainer.getDescriptionInput().value);
 			
             // Initiate a multipart/form-data upload
@@ -156,7 +174,6 @@ function ImageFileUploader(fileInput,fileSelect,displayBox,files)
 		{
 		  if ($(fileInput).length) 
 		  {
-		  	alert('here');
 		    $(fileInput).click();
 		  }
 		  e.preventDefault(); // prevent navigation to "#"
@@ -164,8 +181,22 @@ function ImageFileUploader(fileInput,fileSelect,displayBox,files)
 		
 		fileInput.addEventListener("change",function (e)
 		{
-			addFilesToArray(fileInput.files);
-			handleFiles(); 
+			if(filesArray.length < limit)
+			{
+				addFilesToArray(fileInput.files);
+				handleFiles();
+			}
+			else if(isProfile)
+			{
+				filesArray = new Array();
+				addFilesToArray(fileInput.files);
+				handleFiles();
+			}
+			else
+			{
+				
+				alert('You may only Upload '+limit+' File at a time.');
+			} 
 		},false);
 	};
 	addEvents();

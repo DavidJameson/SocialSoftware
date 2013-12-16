@@ -10,11 +10,12 @@
 		private $file;
 		private $name;
 		private $description;
+		private $isProfile;
 		private $directory;
 		private $domain;
 		private $image_id;
 		
-		function __construct($user,$file,$name,$description)
+		function __construct($user,$file,$name,$description,$isProfile)
 		{
 			$this->credential = new Credential();
 			$this->database = new Database
@@ -30,6 +31,7 @@
 			$this->name = $name;
 			$this->description = $description;
 			$this->image_id = uniqid();
+			$this->isProfile = $isProfile;
 			$this->directory = $this->generateDirectory();
 			$this->domain = 'pixelgraphy.net';
 		}
@@ -42,6 +44,10 @@
 			$str .=$this->user.'<br/>';
 			return $str;
 		}
+		public function updateProfilePicture($table,$setting,$data,$user)
+		{
+			$this->database->updateUserSettings($table,$setting,$data,$user);
+		}
 		public function uploadImageFile()
 		{
 			$ext = $this->getFileExtension($this->name);
@@ -50,9 +56,16 @@
 			{
 				if(move_uploaded_file($this->file['tmp_name'],"../".$this->directory))
 				{
-					$this->database
-					->insertImage($this->image_id,$this->name,$this->user,
-					$this->directory,$this->description,0);
+					if($this->isProfile == 'true')
+					{
+						$this->database->updateUserSettings('uprofile','profile_picture',$this->directory,$this->user);
+					}
+					else
+					{
+						$this->database
+						->insertImage($this->image_id,$this->name,$this->user,
+						$this->directory,$this->description,0);
+					}
 					
 					echo "File Uploaded";
 				}

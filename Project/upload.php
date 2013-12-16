@@ -1,6 +1,4 @@
 <?php
-mysql_connect("Pixelgraphy.db.11837707.hostedresource.com", "Pixelgraphy", "P@web2013") or die (mysql_error()); 
-mysql_select_db("Pixelgraphy")or die(mysql_error());
 if(session_id() == "")
 {
 	session_start();
@@ -20,9 +18,6 @@ function getUserName()
 {
 	return $_SESSION['usr'];
 }
-$uuid = $_SESSION['id'];
-$query = mysql_query("SELECT * FROM uprofile WHERE user_id='$uuid'");
-$data = mysql_fetch_array($query);
 ?>
 <!DOCTYPE html>
 <html lang="en">

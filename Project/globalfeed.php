@@ -1,8 +1,4 @@
 <?php
-require_once "PHP/Credential.class.php";
-$credential = new Credential();
-//$con = mysqli_connect($credential->getHost(),$credential->getUsername(), $credential->getPassword()) or die (mysql_error()); 
-//mysqli_select_db($con,"Pixelgraphy")or die(mysql_error());
 if(session_id() == "")
 {
 	session_start();

@@ -7,9 +7,9 @@ $(document).ready(function()
 	var displayBox = document.getElementById('fileList');
 	var sendButton = document.getElementById('send');
 	
-	var imageFileUploader = new ImageFileUploader(fileInput,fileSelect,fileList);
+	var imageFileUploader = new ImageFileUploader(fileInput,fileSelect,displayBox,10,false);
 			
-	imageFileUploader.dropboxSetup('dropbox');	
+	imageFileUploader.dropboxSetup('dropbox');
 	
 	sendButton.addEventListener("click", function (e) 
 	{

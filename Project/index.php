@@ -1,4 +1,8 @@
 <?php
+require 'PHP/Credential.class.php';
+$connectionData = new Credential();
+mysql_connect($connectionData->getHost(), $connectionData->getUsername(), $connectionData->getPassword()) or die (mysql_error()); 
+mysql_select_db($connectionData->getDBName())or die(mysql_error());
 if(session_id() == "")
 {
 	session_start();
@@ -17,7 +21,12 @@ function getUserName()
 <!-- External links for Yahoo! CSS -->
 <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
 <link rel="stylesheet" href="style/layouts/gallery.css">
-
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<style>
+	
+</style>
 <script>
 	//AJAX STUFF LOGIN
 	function log_in()
@@ -37,12 +46,32 @@ function getUserName()
 			{
 				if((xmlhttp.responseText).substring(0,2) == "Oh")
 				{
-					document.getElementById("myDiv2").innerHTML=xmlhttp.responseText;
+					document.getElementById("achtung").innerHTML=xmlhttp.responseText;
+					$(function() {
+					$( "#dialog-confirm" ).dialog({
+					  resizable: false,
+					  show: {
+						effect: "bounce",
+						duration: 500
+					  },
+					  hide: {
+						effect: "fade",
+						duration: 750
+					  },
+					  height:340,
+					  width:340,
+					  modal: true,
+					  buttons: {
+						"Okay": function() {
+						  $( this ).dialog( "close" );
+						}
+					  }
+					});
+				  });
 				}
 				else
 				{
-					document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
-					login_success_procedure();
+					Redirect();
 				}
 			}
 		  }
@@ -52,48 +81,9 @@ function getUserName()
 		xmlhttp.send();
 	}
 	
-	//AJAX STUFF REGISTER ------ IN PROGRESS
-	function register()
+	function Redirect()
 	{
-		var xmlhttp;
-		if (window.XMLHttpRequest)
-		  {// code for IE7+, Firefox, Chrome, Opera, Safari
-			xmlhttp=new XMLHttpRequest();
-		  }
-		else
-		  {// code for IE6, IE5
-			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-		  }
-		xmlhttp.onreadystatechange=function()
-		  {
-		  if (xmlhttp.readyState==4 && xmlhttp.status==200)
-			{
-				if((xmlhttp.responseText).substring(0,2) == "Oh")
-				{
-					document.getElementById("msgDiv").innerHTML=xmlhttp.responseText;
-				}
-				else
-				{
-					document.getElementById("overlay").innerHTML=xmlhttp.responseText;
-				}
-			}
-		  }
-		xmlhttp.open("POST","register_check.php",true);
-		xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-		xmlhttp.send("username=" + document.getElementById('U1').value + "&password1=" + document.getElementById('PW1').value + "&password2=" + document.getElementById('PW2').value + "&email=" + document.getElementById('E1').value);
-		xmlhttp.send();
-	}
-	
-	function login_success_procedure()
-	{
-		document.getElementById("myDiv2").remove();
-		document.getElementById("U1").disabled=true;
-		document.getElementById("PW1").disabled=true;
-		document.getElementById("PW2").disabled=true;
-		document.getElementById("E1").disabled=true;
-		document.getElementById("cb").disabled=true;
-		document.getElementById("sbmt").disabled=true;
-		document.getElementById("msgDiv").hidden=true;
+    window.location="http://www.pixelgraphy.net/profile.php";
 	}
 </script>
 
@@ -105,8 +95,19 @@ function getUserName()
         <div class="pure-menu pure-menu-open pure-menu-horizontal">
             <a class="pure-menu-heading" href="index.php">Pixelgraphy</a>
             <ul>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact Us</a></li>
+				<!-- TEST SHIT -->
+				<?php 
+					if (isset($_SESSION['usr']))
+					{
+						echo '<li><a class="pure-button" href="profile.php" style="background: rgb(28, 184, 65);color:white;">Enter - '.$_SESSION['usr'].'</a></li>  <li><a class="pure-button" href="session_kill.php" style="background:rgb(223, 117, 20);color:white;">Not You? Logout.</a></li>';
+					}
+					else
+					{
+						echo '<li><input id="N1" type="text" placeholder="Username" name="username" required></li>
+							<li><input id="P1" type="password" placeholder="Password" name="password" required></li>
+							<li><a class="pure-button" style="background: rgb(28, 184, 65);color:white;" onclick="log_in()">Log In</a></li>  <li><a class="pure-button" style="background:rgb(223, 117, 20);color:white;" href="register.php">Register</a><div id="myDiv2"></div></li>';
+					}
+					?>
             </ul>
         </div>
     </div>
@@ -219,125 +220,28 @@ function getUserName()
         </div>
 		<!-- *** Photo boxes END HERE *** -->
 		
-		<!-- Login Forms -->
-        <div class="pure-u-1-2 form-box">
-            <div class="1-box">
-				<br/>
-                <h2>Login to Pixelgraphy</h2>
-
-                <form method="post" class="pure-form">
-					<?php 
-					if (isset($_SESSION['usr']))
-					{
-						echo '<p>Hey! You are logged in as ' . getUserName() . '.</p>';
-						echo '<a class="pure-button" href="profile.php">Enter</a> <a class="pure-button" href="session_kill.php">Not You? Logout.</a>';
-					}
-					else
-					{
-						echo '<div id="myDiv"><input id="N1" type="text" placeholder="Username" name="username" required>
-							<input id="P1" type="password" placeholder="Password" name="password" required>
-							<a class="pure-button" onclick="log_in()">Log In</a></div><div id="myDiv2"></div>';
-					}
-					?>
-                </form>
-            </div>
-		</div>
-		<div class="pure-u-1-2 form-box">
-			<div class="l-box">
-			<h2>Register with Pixelgraphy</h2>
-				<form action="register_check.php" method="post" class="pure-form pure-form-aligned">
-					<?php
-					if (isset($_SESSION['usr']))
-					{
-						echo '
-						<fieldset>
-						<div id="overlay">
-							<div class="pure-control-group">
-								<label for="name">Username</label>
-								<input id="U1" name="username" id="name" type="text" placeholder="Username" disabled>
-							</div>
-
-							<div class="pure-control-group">
-								<label for="password">Password</label>
-								<input id="PW1" name="password1" id="password" type="password" placeholder="Password" disabled>
-							</div>
-							<div class="pure-control-group">
-								<label for="password">Verify Password</label>
-								<input id="PW2" name="password2" id="password" type="password" placeholder="Password Again" disabled>
-							</div>
-
-							<div class="pure-control-group">
-								<label for="email">Email Address</label>
-								<input id="E1" name="email" id="email" type="email" placeholder="Email Address" disabled>
-							</div>
-
-							<div class="pure-controls">
-								<label for="cb" class="pure-checkbox">
-									<input id="cb" type="checkbox" disabled> I agree with the TOC
-								</label>
-
-								<a id="sbmt" class="pure-button" onclick="register()" disabled>Register</a>
-							</div>
-						</div>
-						</fieldset>
-						';
-					}
-					else
-					{
-						echo '
-						<fieldset>
-						<div id="overlay">
-							<div class="pure-control-group">
-								<label for="name">Username</label>
-								<input id="U1" name="username" id="name" type="text" placeholder="Username" required>
-							</div>
-
-							<div class="pure-control-group">
-								<label for="password">Password</label>
-								<input id="PW1" name="password1" id="password" type="password" placeholder="Password" required>
-							</div>
-							<div class="pure-control-group">
-								<label for="password">Verify Password</label>
-								<input id="PW2" name="password2" id="password" type="password" placeholder="Password Again" required>
-							</div>
-
-							<div class="pure-control-group">
-								<label for="email">Email Address</label>
-								<input id="E1" name="email" id="email" type="email" placeholder="Email Address" required>
-							</div>
-
-							<div class="pure-controls">
-								<label for="cb" class="pure-checkbox">
-									<input id="cb" type="checkbox" required> I agree with the TOC
-								</label>
-
-								<a id="sbmt" class="pure-button" onclick="register()">Register</a>
-								<div id="msgDiv"></div>
-							</div>
-						</div>
-						</fieldset>
-						';
-					}
-					?>
-				</form>
-			</div>
-        </div>
-		<!-- Login Forms END -->
-		
 		<!-- Bottom Description -->
         <div class="pure-u-1">
             <div class="l-box">
-                
+			<h2>Pixelgraphy is...</h2>
+			<p>A new social network under constant development by students for students. Using modern programming an design technologies to make a seamless and smooth user experience</p>
+			<h2>Login or Register!</h2>
+			<p>Its easy to login and even easier to register. Just sign in at the top or click the register button to be brought to our simple registration form.</p>
             </div>
         </div>
 		<!-- Bottom Description END -->
     </div>
-	
+	<div id="dialog-confirm" title="Attention!">
+		<p id="achtung"><span style="float:left; margin:0 7px 20px 0;"></span></p>
+	</div>
 	<!-- Bottom footer bar -->
     <div class="footer">
         Pixelgraphy - designed by Laerte Sousa and Anthony Paveglio - &copy; 1973.
+		<br>
+		<a href="#">Contact Us</a> - <a href="#">About</a>
     </div>
 	<!-- Bottom footer bar END -->
+
 </div>
 <!-- Container END -->
 <!-- External Script Link -->

@@ -17,8 +17,8 @@
 }
 #image_results .images
 {
-	width: 100%;
-	height: 250px;
+	width: 200px;
+	height: auto;
 	display: block;
 }
 #image_results .name

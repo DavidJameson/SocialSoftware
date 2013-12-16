@@ -32,6 +32,14 @@
 		{
 			return $this->connection;
 		}
+		function updateUserSettings($table,$setting,$data,$user)
+		{
+			$query = '';
+			$query .= 'UPDATE '.$table;
+			$query .= ' SET '.$setting." = '".$data."' ";
+			$query .= "WHERE user_id ='".$this->getUserID($user)."'";
+			mysqli_query($this->connection,$query);
+		}
 		function retrieveUserImageData($userID)
 		{
 			$query = "select name,description,directory,date from images where user_id = '".$userID."'";
@@ -149,7 +157,7 @@
 			(
 				"columns"=>array
 				(
-					'id',
+					'image_id',
 					'name',
 					'user_id',
 					'description',

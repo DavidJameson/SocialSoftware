@@ -20,9 +20,11 @@ function getUserName()
 {
 	return $_SESSION['usr'];
 }
-$uuid = $_SESSION['id'];
+$uuid = $_GET['id']; //gets ID from the url
 $query = mysql_query("SELECT * FROM uprofile WHERE user_id='$uuid'");
+$queryUser = mysql_query("SELECT * FROM users WHERE user_id='$uuid'");
 $data = mysql_fetch_array($query);
+$dataUser = mysql_fetch_array($queryUser);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,6 +37,13 @@ $data = mysql_fetch_array($query);
 <link rel="stylesheet" href="style/layouts/side-menu.css">
 <link rel="stylesheet" href="style/layouts/marketing.css">
 <link rel="stylesheet" href="style/user_image.css"/>
+<style>
+	img
+	{
+		max-width:320px;
+		max-height:500px;
+	}
+</style>
 </head>
 <body>
 <div id="layout">
@@ -48,7 +57,7 @@ $data = mysql_fetch_array($query);
             <ul>
                 <li><a id="global_profile" href="globalfeed.php">Global Feed</a></li>
 				
-                <li class="pure-menu-selected menu-item-divided">
+                <li class="menu-item-divided">
                     <a id="myprofile_profile" href="profile.php">My  Profile</a>
                 </li>
 				
@@ -75,7 +84,7 @@ $data = mysql_fetch_array($query);
             <div class="pure-u-2-3">
                 <div class="l-box splash-text">
                     <h1 class="splash-head">
-                        <?php echo $_SESSION['usr']; ?>
+                        <?php echo $dataUser['username']; ?>
                     </h1>
 
                     <h2 class="splash-subhead">
@@ -111,7 +120,7 @@ $data = mysql_fetch_array($query);
 			<h2>Recent Images Upload</h2>
 			<?php
 				require 'PHP/ImageFeed.class.php';
-				$feed = new ImageFeed(getUserName());
+				$feed = new ImageFeed($dataUser['username']);
 				echo $feed->displayUserImages();
 			?>
 		</div>

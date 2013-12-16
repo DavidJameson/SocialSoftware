@@ -1,7 +1,3 @@
-#global_feed
-{
-	
-}
 #image_results
 {
 	width: 500px;
@@ -26,7 +22,7 @@
 }
 .post_container .images
 {
-	width: 95%;
+	width: 80%;
 	height: auto;
 	margin-left: auto;
 	margin-right: auto;
